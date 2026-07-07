@@ -1,11 +1,11 @@
 import React from "react";
+import Registration from "./Pages/Registration";
 
 const App =()=>{
   return(
     <div>
-      <h1 className="text-red-950 ml-[40px]">hello pranjal</h1>
+      <Registration />
     </div>
   )
 }
-
 export default App;
