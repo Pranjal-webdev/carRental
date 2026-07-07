@@ -1,15 +1,35 @@
 import React from "react";
 import logo from "../assets/logocar.png";
+import car from "../assets/mobbg.jpg";
 import bgcar from "../assets/carbg.jpg";
+import {useEffect,useState} from "react";
 
 const Registration = () => {
+    const [bgimg , setbgimg]=useState(bgcar);
+    useEffect(()=>{
+        const changebackground = () =>{
+            if (window.innerWidth < 640){
+                setbgimg(car);
+            }
+            else{
+                setbgimg(bgcar)
+            }
+        };
+
+        changebackground();
+
+        window.addEventListener("resize",changebackground);
+
+        return()=>window.removeEventListener("resize",changebackground);
+    },[]);
+
     return (
-        <div className="min-h-scren bg-contain bg-center bg-no-repeat bg-black pb-30" style={{backgroundImage:`url(${bgcar})`}}>
+        <div className="min-h-scren bg-contain bg-center bg-no-repeat bg-black" style={{backgroundImage:`url(${bgimg})`}}>
             <div className="flex items-center gap-3 bg-green-950 text-white p-1 sm:p-2">
                 <img src={logo} alt="logo" className="w-20 h-10 sm:w-32 sm:h-12"/>
                 <h1 className="font-bold text-xs sm:text-lg">CAR RENTAL HOUSE</h1>
             </div>
-            <div className="max-w-2xl mx-auto mt-2 border p-6 rounded-lg mt-[70px] sm:mt-[100px] text-white bg-white/10">
+            <div className="max-w-2xl mx-4 sm:mx-8 md:mx-auto mt-4 sm:mt-20 border p-6 sm:pb-10 sm:mb-10 rounded-lg bg-white/18 text-white">
                 <h1 className="text-lg sm:text-2xl lg:text-4xl font-bold ml-[80px] sm:ml-[150px] mb-[30px] pt-1">Registration Form</h1><br />
                 <div className="sm:ml-20">
                     <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
