@@ -44,7 +44,7 @@ const Registration = () => {
     }, []);
 
     return (
-        <div className="min-h-scren bg-contain bg-center bg-no-repeat bg-black" style={{ backgroundImage: `url(${bgimg})` }}>
+        <div className="min-h-scren bg-contain bg-center bg-no-repeat bg-black pb-17" style={{ backgroundImage: `url(${bgimg})` }}>
             <div className="flex items-center gap-3 bg-green-950 text-white p-1 sm:p-2">
                 <img src={logo} alt="logo" className="w-20 h-10 sm:w-32 sm:h-12" />
                 <h1 className="font-bold text-xs sm:text-lg">CAR RENTAL HOUSE</h1>
@@ -59,27 +59,27 @@ const Registration = () => {
                         </div>
                         <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
                             <label htmlFor="lastname" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">Last Name : </label>
-                            <input type="text" id="lastname" lastname="lastname" className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your last name" required />
+                            <input type="text" id="lastname" name="lastname" className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your last name" required />
                         </div>
                         <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
                             <label htmlFor="email" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">Email : </label>
-                            <input type="email" id="email" email="email" className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your email" required />
+                            <input type="email" id="email" name="email" className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your email" required />
                         </div>
                         <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
                             <label htmlFor="phone" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">Phone no : </label>
-                            <input type="tel" id="phone" phone="phone" className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your phone no." maxLength={10} pattern="[6-9][0-9]{9}" required />
+                            <input type="tel" id="phone" name="phone" className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your phone no." maxLength={10} pattern="[6-9][0-9]{9}" required />
                         </div>
                         <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
                             <label htmlFor="country" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">Country : </label>
-                            <input type="text" id="country" country="country" className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your country" required />
+                            <input type="text" id="country" name="country" className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your country" required />
                         </div>
                         <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
                             <label htmlFor="state" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">State : </label>
-                            <input type="text" id="state" state="state" className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your state" required />
+                            <input type="text" id="state" name="state" className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your state" required />
                         </div>
                         <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
                             <label htmlFor="city" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">City : </label>
-                            <input type="text" id="city" city="city" className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your city" required />
+                            <input type="text" id="city" name="city" className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your city" required />
                         </div>
                         <div className="flex justify-center mt-10">
                             <button type="submit" disabled={isPending} className="bg-orange-600 text-white w-24 sm:w-32 lg:w-40 mb-2 rounded-sm border border-white-2 font-semibold hover:bg-orange-700 transition all duration-300">{isPending ?"submitting...": "Register"}</button>
