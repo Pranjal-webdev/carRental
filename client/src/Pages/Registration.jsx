@@ -3,10 +3,14 @@ import logo from "../assets/logocar.png";
 import car from "../assets/mobbg.jpg";
 import bgcar from "../assets/carbg.jpg";
 import { useEffect, useState, useActionState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Registration = () => {
+
+    const navigate = useNavigate();
     const [bgimg, setbgimg] = useState(bgcar);
     const [message, submitAction, isPending] = useActionState(handlesubmit, null);
+    const [showSuccess, setshowSuccess]=useState(false);
 
     async function handlesubmit(prevState, formData) {
 
@@ -18,14 +22,16 @@ const Registration = () => {
         const state = formData.get("state");
         const city = formData.get("city");
 
-        if (name === "" || lastname === "" || email === "" || phone === "" || country === "" || state === "" || city === "") {
-            return { message: "All fields are required" };
-            alert({message});
-        }
         await new Promise ((resolve)=>{
             setTimeout(resolve,2000);
-            alert("Registration successful");
         });
+        setshowSuccess(true);
+        
+
+        setTimeout(()=>{
+            setshowSuccess(false);
+            navigate("/home")
+        },1800);
     }
 
     useEffect(() => {
@@ -87,6 +93,16 @@ const Registration = () => {
                             <button type="submit" disabled={isPending} className="bg-orange-600 text-white w-24 sm:w-32 lg:w-40 mb-2 rounded-sm border border-white-2 font-semibold hover:bg-orange-700 transition all duration-300">{isPending ?"submitting...": "Register"}</button>
                         </div>
                     </form>
+                    {showSuccess && (
+                        <div className="fixed top-5 right-150 bg-white border-l-4 border-green-500 text-gray-800 rounded-lg shadow-2xl z-5-0 px-5 py-4">
+                            <h3 className="font-bold text-green-600">
+                                Registration successful!
+                            </h3>
+                            <p className="text-sm text-gray-600">
+                                Your account has been created successfully.
+                            </p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div >

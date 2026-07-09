@@ -15,12 +15,12 @@ const Home = () => {
                     <div className="flex items-center">
                         <img src={logo} alt="logo" className="w-20 h-10 sm:w-32 sm:h-12" />
                         <h1 className="font-bold text-xs sm:text-lg items-center">CAR RENTAL HOUSE</h1>
-                        <ul className="flex items-center gap-8 ml-auto hover:text-blue-500">
-                            <li><Link to ="/">Home</Link></li>
-                            <li><Link to ="/cars">All Cars</Link></li>
-                            <li><Link to ="/about">About</Link></li>
-                            <li><Link to ="/contact">Contact</Link></li>
-                            <li><Link to ="/account">My Account</Link></li>
+                        <ul className="flex items-center gap-8 ml-auto hover:cursor-pointer">
+                            <li className="hover:text-yellow-200"><Link to ="/home">Home</Link></li>
+                            <li className="hover:text-yellow-200"><Link to ="/cars">All Cars</Link></li>
+                            <li className="hover:text-yellow-200"><Link to ="/about">About</Link></li>
+                            <li className="hover:text-yellow-200"><Link to ="/contact">Contact</Link></li>
+                            <li className="hover:text-yellow-200"><Link to ="/account">My Account</Link></li>
                         </ul>
                     </div>
                 </div>
@@ -48,22 +48,22 @@ const Home = () => {
                         </div>
                         <div>
                             <h2 className="font-bold text-lg">Quick Links</h2>
-                            <ul className="hover:text-blue-500">
+                            <ul className="hover:cusrsor-pointor">
                                 <div className="flex item-center gap-2 mb-2">
                                     <FaDotCircle  className="mt-1"/>
-                                    <li><Link to ="/">Home</Link></li>
+                                    <li className="hover:text-blue-800"><Link to ="/home">Home</Link></li>
                                 </div>
                                 <div className="flex item-center gap-2 mb-2">
                                     <FaDotCircle  className="mt-1"/>
-                                    <li><Link to ="/cars">All Cars</Link></li>
+                                    <li className="hover:text-blue-800"><Link to ="/cars">All Cars</Link></li>
                                 </div>
                                 <div className="flex item-center gap-2 mb-2">
                                     <FaDotCircle  className="mt-1"/>
-                                    <li><Link to ="/about">About</Link></li>
+                                    <li className="hover:text-blue-900"><Link to ="/about">About</Link></li>
                                 </div>
                                 <div className="flex item-center gap-2 mb-2">
                                     <FaDotCircle className="mt-1"/>
-                                    <li><Link to ="/contact">Contact</Link></li>
+                                    <li className="hover:text-blue-900"><Link to ="/contact">Contact</Link></li>
                                 </div>
                             </ul>
                         </div>
