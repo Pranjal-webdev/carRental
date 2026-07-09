@@ -19,10 +19,12 @@ const Registration = () => {
         const city = formData.get("city");
 
         if (name === "" || lastname === "" || email === "" || phone === "" || country === "" || state === "" || city === "") {
-            return { message: "form submitted sucessfully" };
+            return { message: "All fields are required" };
+            alert({message});
         }
         await new Promise ((resolve)=>{
             setTimeout(resolve,2000);
+            alert("Registration successful");
         });
     }
 
