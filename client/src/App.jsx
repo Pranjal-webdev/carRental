@@ -3,6 +3,7 @@ import Registration from "./Pages/Registration";
 import Home from "./Pages/Home";
 import { Routes, Route } from "react-router-dom";
 import Carcard from "./Pages/Carcard";
+import Bigcar from "./Pages/Bigcar";
 
 const App =()=>{
   return(
@@ -11,6 +12,7 @@ const App =()=>{
         <Route path ="/" element={<Registration />}/>
         <Route path ="/home" element={<Home />}/>
         <Route path="/cars" element={<Carcard />}/>
+        <Route path="/cardetail" element={<Bigcar />}/>
       </Routes>
     </div>
   )
