@@ -1,30 +1,29 @@
 import express from "express";
-import mongoose from "mongoose";
 import dotenv from "dotenv";
-import dns from "dns";
-
-dns.setServers(["1.1.1.1","8.8.8.8"]);
+import connectDB from "./config/db.js";
+import carRoutes from "./routes/carRoutes.js";
 
 dotenv.config();
 
 const app = express();
 
+// Connect Database
+connectDB();
+
+// Middleware
 app.use(express.json());
 
-mongoose.connect(process.env.MONGO_URL)
-.then(() => {
-    console.log("MongoDB Connected Successfully");
-})
-.catch((error) => {
-    console.log(error);
-});
-
-
+// Test Route
 app.get("/", (req, res) => {
-    res.send("Server is running");
+  res.send("🚗 Car Rental API is Running...");
 });
 
+// API Routes
+app.use("/api/cars", carRoutes);
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server running on port ${process.env.PORT}`);
+// Start Server
+const PORT = process.env.PORT || 8000;
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
