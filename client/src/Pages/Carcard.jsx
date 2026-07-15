@@ -6,6 +6,7 @@ import axios from "axios";
 const Carcard = () => {
 
     const [cars, setCars] = useState([]);
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
         const fetchCars = async () => {
@@ -21,27 +22,45 @@ const Carcard = () => {
         fetchCars();
     }, []);
 
+    const filteredCars = cars.filter((car) => {
+        return (
+            car.name.toLowerCase().includes(search.toLowerCase()) ||
+            car.brand.toLowerCase().includes(search.toLowerCase()) ||
+            car.fuel.toLowerCase().includes(search.toLowerCase()) ||
+            car.transmission.toLowerCase().includes(search.toLowerCase())
+        );
+    });
+    const displayCars = search.trim() === "" ? filteredCars.slice(0, 16) : filteredCars;
+
     return (
-        <div className="grid grid-cols-4 gap-5 px-3 mt-5">
+        <div>
+            <div className="flex justify-center mt-8 mb-6">
+                <input type="text" placeholder="Search Your Dream Car..." value={search} onChange={(e) => setSearch(e.target.value)}
+                    className="w-[500px] h-12 border-2 border-orange-500 rounded-full px-5 outline-none shadow-lg" />
+            </div>
+            
+            <div className="grid grid-cols-4 gap-5 px-3 mt-5">
 
-            {cars.slice(0, 16).map((car) => {
+                {displayCars.map((car)=>{
 
-                return (
-                    <div className="w-80 h-85 border border-black text-center border border-black border-2" key={car._id}>
+                    return (
+                        <div className="w-80 h-85 border border-black text-center border border-black border-2" key={car._id}>
 
-                        <div><img src={car.image} alt={car.name} className="w-full h-44 object-cover border border-black border-1" /></div>
+                            <div><img src={car.image} alt={car.name} className="w-full h-44 object-cover border border-black border-1" /></div>
 
-                        <p className="font-bold mt-2">{car.name}</p>
+                            <p className="font-bold mt-2">{car.name}</p>
 
-                        <p className="text-gray-600 text-sm px-2">{car.description}</p>
+                            <p className="text-gray-600 text-sm px-2">{car.description}</p>
 
-                        <p className="text-orange-600 font-bold mt-2">₹ {car.price}/day</p>
+                            <p className="text-orange-600 font-bold mt-2">₹ {car.price}/day</p>
 
-                        <button className="border border-black text-white bg-orange-600 hover:bg-orange-700 rounded-lg p-1 mt-2"><Link to={`/cardetail/${car._id}`}>Buy Now</Link></button>
+                            <button className="border border-black text-white bg-orange-600 hover:bg-orange-700 rounded-lg p-1 mt-2"><Link to={`/cardetail/${car._id}`}>Buy Now</Link></button>
 
-                    </div>
-                );
-            })};
+                        </div>
+                    );
+                })};
+            </div>
         </div>
-    )};
+    )
+};
 export default Carcard;
