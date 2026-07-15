@@ -37,7 +37,7 @@ const Carcard = () => {
 
                         <p className="text-orange-600 font-bold mt-2">₹ {car.price}/day</p>
 
-                        <button className="border border-black text-white bg-orange-600 hover:bg-orange-700 rounded-lg p-1 mt-2"><Link to="/cardetail">Buy Now</Link></button>
+                        <button className="border border-black text-white bg-orange-600 hover:bg-orange-700 rounded-lg p-1 mt-2"><Link to={`/cardetail/${car._id}`}>Buy Now</Link></button>
 
                     </div>
                 );

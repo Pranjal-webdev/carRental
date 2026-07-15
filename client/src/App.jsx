@@ -18,8 +18,8 @@ const App = () => {
 
           <Route path="/cars" element={<Carcard />} />
 
-          <Route path="/cardetail" element={<Bigcar />} />
-
+          <Route path="/cardetail/:id" element={<Bigcar />} />
+          
         </Route>
 
       </Routes>
