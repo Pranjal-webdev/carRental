@@ -1,5 +1,4 @@
 import React from "react";
-import photo from "../assets/bgcar01.jpg";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -23,7 +22,7 @@ const Carcard = () => {
     }, []);
 
     return (
-        <div className="grid grid-cols-4 gap-5 px-3">
+        <div className="grid grid-cols-4 gap-5 px-3 mt-5">
 
             {cars.slice(0, 16).map((car) => {
 
