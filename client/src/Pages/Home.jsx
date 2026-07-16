@@ -3,8 +3,12 @@ import cars from "../assets/bgcar01.jpg";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { FaShoppingCart } from "react-icons/fa";
+import { useContext, useEffect } from "react";
+import { CartContext } from "../context/CartContext";
 
 const Home = () => {
+
+    const { cartCount, setCartCount } = useContext(CartContext);
 
     useEffect(() => {
 

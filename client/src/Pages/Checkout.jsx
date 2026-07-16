@@ -1,9 +1,30 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
 
     const [cart, setCart] = useState([]);
+    const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+
+    fullName: "",
+
+    email: "",
+
+    phone: "",
+
+    address: "",
+
+    city: "",
+
+    state: "",
+
+    pincode: "",
+
+    paymentMethod: ""
+
+});
 
     useEffect(() => {
 
@@ -26,6 +47,59 @@ const Checkout = () => {
         fetchCart();
 
     }, []);
+
+    const handleChange = (e) => {
+
+    setFormData({
+
+        ...formData,
+
+        [e.target.name]: e.target.value
+
+    });
+
+};
+
+const placeOrder = async () => {
+
+    if (
+        !formData.fullName ||
+        !formData.email ||
+        !formData.phone ||
+        !formData.address ||
+        !formData.city ||
+        !formData.state ||
+        !formData.pincode ||
+        !formData.paymentMethod
+    ) {
+
+        alert("Please fill all the fields.");
+
+        return;
+
+    }
+
+    try {
+
+        await axios.post("/api/booking", {
+
+            ...formData,
+
+            totalPrice: total.toFixed(0)
+
+        });
+
+        setCart([]);
+
+        navigate("/success");
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+};
 
     const subtotal = cart.reduce((total, item) => {
 
@@ -57,23 +131,23 @@ const Checkout = () => {
 
                     <div className="grid grid-cols-2 gap-5">
 
-                        <input type="text" placeholder="Full Name" className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500" />
+                        <input type="text" placeholder="Full Name" name="fullName" value={formData.fullName} onChange={handleChange} className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500" />
 
-                        <input type="email" placeholder="Email Address" className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500" />
+                        <input type="email" placeholder="Email Address" name="email" value={formData.email} onChange={handleChange} className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500" />
 
-                        <input type="number" placeholder="Phone Number" className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500" />
+                        <input type="number" placeholder="Phone Number"  name="phone" value={formData.phone} onChange={handleChange} className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500" />
 
-                        <input type="text" placeholder="City" className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500" />
+                        <input type="text" placeholder="City" name="city" value={formData.city} onChange={handleChange} className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500" />
 
                     </div>
 
-                    <textarea placeholder="Full Address" className="border border-gray-300 rounded-lg p-3 w-full mt-5 h-32 outline-none focus:border-orange-500"></textarea>
+                    <textarea placeholder="Full Address" name="address" value={formData.address} onChange={handleChange} className="border border-gray-300 rounded-lg p-3 w-full mt-5 h-32 outline-none focus:border-orange-500"></textarea>
 
                     <div className="grid grid-cols-2 gap-5 mt-5">
 
-                        <input type="text" placeholder="State" className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500" />
+                        <input type="text" placeholder="State" name="state" value={formData.state} onChange={handleChange} className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500" />
 
-                        <input type="number" placeholder="Pincode" className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500" />
+                        <input type="number" placeholder="Pincode" name="pincode" value={formData.pincode} onChange={handleChange} className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500" />
 
                     </div>
 
@@ -85,7 +159,7 @@ const Checkout = () => {
 
                         <label className="flex items-center gap-3">
 
-                            <input type="radio" name="payment" />
+                            <input type="radio" name="paymentMethod" value="Cash On Delivery " onChange={handleChange}/>
 
                             Cash On Delivery
 
@@ -93,7 +167,7 @@ const Checkout = () => {
 
                         <label className="flex items-center gap-3">
 
-                            <input type="radio" name="payment" />
+                            <input type="radio" name="paymentMethod" value="UPI" onChange={handleChange}/>
 
                             UPI
 
@@ -101,7 +175,7 @@ const Checkout = () => {
 
                         <label className="flex items-center gap-3">
 
-                            <input type="radio" name="payment" />
+                            <input type="radio" name="payment" name="paymentMethod" value="Credit / Debit Card" onChange={handleChange}/>
 
                             Credit / Debit Card
 
@@ -181,10 +255,8 @@ const Checkout = () => {
 
                     </div>
 
-                    <button className="w-full h-12 bg-orange-600 hover:bg-orange-700 text-white rounded-lg mt-6 font-bold">
-
+                    <button onClick={placeOrder} className="w-full h-12 bg-orange-600 hover:bg-orange-700 text-white rounded-lg mt-6 font-bold">
                         Place Order
-
                     </button>
 
                 </div>
