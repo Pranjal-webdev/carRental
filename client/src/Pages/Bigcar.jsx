@@ -2,15 +2,21 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 const Bigcar = () => {
 
     const { id } = useParams();
     const [car, setCar] = useState(null);
+    const [quantity, setQuantity] = useState(0);
+    const { setCartCount } = useContext(CartContext);
 
     useEffect(() => {
 
-        const fetchCar = async () => {
+    const fetchCar = async () => {
+
+        try {
 
             const res = await axios.get("/api/cars");
 
@@ -18,12 +24,72 @@ const Bigcar = () => {
 
             setCar(selectedCar);
 
-        };
+        } catch (error) {
 
-        fetchCar();
+            console.log(error);
 
-    }, [id]);
+        }
 
+    };
+
+    fetchCar();
+
+}, [id]);
+
+    const addToCart = async () => {
+
+    try {
+
+        const res = await axios.post("/api/cart", {
+            carId: car._id
+        });
+
+        setQuantity(res.data.quantity);
+        setCartCount((prev) => prev + 1);
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+};
+
+    const increaseQuantity = async () => {
+
+    try {
+
+        const res = await axios.patch(`/api/cart/increase/${car._id}`);
+
+        setQuantity(res.data.quantity);
+        setCartCount((prev) => prev + 1);
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+};
+
+    const decreaseQuantity = async () => {
+
+    try {
+
+        const res = await axios.patch(`/api/cart/decrease/${car._id}`);
+
+        setQuantity(res.data.quantity);
+        setCartCount((prev) => prev - 1);
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+};
+
+    
     if (!car) {
         return <h1>Loading...</h1>;
     }
@@ -40,7 +106,21 @@ const Bigcar = () => {
                         <p className="text-4xl font-extrabold text-orange-600 mt-6">₹ {car.price}<span className="text-xl text-gray-500 font-medium"> / day</span></p>
                         <div className="flex gap-4 mt-8 w-80 h-10">
                             <button className="bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-lg font-semibold shadow-lg">Book Now</button>
-                            <button className="border-2 border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white px-3 py-2 rounded-lg font-semibold transition">Add To Cart</button>
+                            {
+                                quantity === 0 ?
+
+                                <button className="text-orange-600 border border-orange-600 w-40 h-10 rounded-lg hover:bg-orange-700 hover:text-white" onClick={addToCart}>Add To Cart</button>
+                                :
+                                <div className="flex items-center justify-between w-40 h-10 border border-black rounded-lg">
+
+                                    <button className="w-12 h-full bg-orange-600 text-white text-xl hover:bg-orange-700" onClick={decreaseQuantity}>-</button>
+
+                                    <span className="font-bold text-lg">{quantity}</span>
+
+                                    <button className="w-12 h-full bg-orange-600 text-white text-xl hover:bg-orange-700" onClick={increaseQuantity}>+</button>
+
+                                </div>
+                            }
                         </div>
                     </div>
                     <div>

@@ -1,8 +1,31 @@
 import React from "react";
 import cars from "../assets/bgcar01.jpg";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { FaShoppingCart } from "react-icons/fa";
 
 const Home = () => {
+
+    useEffect(() => {
+
+    const fetchCart = async () => {
+
+        const res = await axios.get("/api/cart");
+
+        const total = res.data.reduce((sum, item) => {
+
+            return sum + item.quantity;
+
+        }, 0);
+
+        setCartCount(total);
+
+    };
+
+    fetchCart();
+
+}, []);
+
     return (
         <div>
             <div className="flex items-center justify-between px-10 py-10 border border-black">
