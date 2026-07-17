@@ -6,25 +6,26 @@ const Checkout = () => {
 
     const [cart, setCart] = useState([]);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
 
-    fullName: "",
+        fullName: "",
 
-    email: "",
+        email: "",
 
-    phone: "",
+        phone: "",
 
-    address: "",
+        address: "",
 
-    city: "",
+        city: "",
 
-    state: "",
+        state: "",
 
-    pincode: "",
+        pincode: "",
 
-    paymentMethod: ""
+        paymentMethod: ""
 
-});
+    });
 
     useEffect(() => {
 
@@ -50,56 +51,65 @@ const Checkout = () => {
 
     const handleChange = (e) => {
 
-    setFormData({
-
-        ...formData,
-
-        [e.target.name]: e.target.value
-
-    });
-
-};
-
-const placeOrder = async () => {
-
-    if (
-        !formData.fullName ||
-        !formData.email ||
-        !formData.phone ||
-        !formData.address ||
-        !formData.city ||
-        !formData.state ||
-        !formData.pincode ||
-        !formData.paymentMethod
-    ) {
-
-        alert("Please fill all the fields.");
-
-        return;
-
-    }
-
-    try {
-
-        await axios.post("/api/booking", {
+        setFormData({
 
             ...formData,
 
-            totalPrice: total.toFixed(0)
+            [e.target.name]: e.target.value
 
         });
 
-        setCart([]);
+    };
 
-        navigate("/success");
+    const placeOrder = async () => {
 
-    } catch (error) {
+        if (
+            !formData.fullName ||
+            !formData.email ||
+            !formData.phone ||
+            !formData.address ||
+            !formData.city ||
+            !formData.state ||
+            !formData.pincode ||
+            !formData.paymentMethod
+        ) {
 
-        console.log(error);
+            alert("Please fill all the fields.");
+            return;
 
-    }
+        }
 
-};
+        try {
+
+            setLoading(true);
+
+            await axios.post("/api/booking", {
+
+                ...formData,
+
+                totalPrice: total.toFixed(0)
+
+            });
+
+            setCart([]);
+
+            setTimeout(() => {
+
+                setLoading(false);
+
+                navigate("/success");
+
+            }, 2500);
+
+        } catch (error) {
+
+            console.log(error);
+
+            setLoading(false);
+
+        }
+
+    };
 
     const subtotal = cart.reduce((total, item) => {
 
@@ -112,6 +122,46 @@ const placeOrder = async () => {
     const gst = subtotal * 0.18;
 
     const total = subtotal + delivery + gst;
+
+
+    if (loading) {
+
+    return (
+
+        <div className="h-screen flex flex-col justify-center items-center bg-gray-100 overflow-hidden">
+
+            <div className="relative w-[500px] h-28 overflow-hidden">
+
+                <div className="absolute animate-car">
+
+                    <img
+                        src="https://cdn-icons-png.flaticon.com/512/744/744465.png"
+                        alt="car"
+                        className="w-28 scale-x-[-1]"
+                    />
+
+                </div>
+
+            </div>
+
+            <h2 className="text-3xl font-bold mt-10 text-orange-600">
+
+                Booking Your Dream Ride...
+
+            </h2>
+
+            <p className="text-gray-600 mt-3 text-lg">
+
+                Please wait while we confirm your booking.
+
+            </p>
+
+        </div>
+
+    );
+
+}
+
 
     return (
 
@@ -135,7 +185,7 @@ const placeOrder = async () => {
 
                         <input type="email" placeholder="Email Address" name="email" value={formData.email} onChange={handleChange} className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500" />
 
-                        <input type="number" placeholder="Phone Number"  name="phone" value={formData.phone} onChange={handleChange} className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500" />
+                        <input type="number" placeholder="Phone Number" name="phone" value={formData.phone} onChange={handleChange} className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500" />
 
                         <input type="text" placeholder="City" name="city" value={formData.city} onChange={handleChange} className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500" />
 
@@ -159,7 +209,7 @@ const placeOrder = async () => {
 
                         <label className="flex items-center gap-3">
 
-                            <input type="radio" name="paymentMethod" value="Cash On Delivery " onChange={handleChange}/>
+                            <input type="radio" name="paymentMethod" value="Cash On Delivery " onChange={handleChange} />
 
                             Cash On Delivery
 
@@ -167,7 +217,7 @@ const placeOrder = async () => {
 
                         <label className="flex items-center gap-3">
 
-                            <input type="radio" name="paymentMethod" value="UPI" onChange={handleChange}/>
+                            <input type="radio" name="paymentMethod" value="UPI" onChange={handleChange} />
 
                             UPI
 
@@ -175,7 +225,7 @@ const placeOrder = async () => {
 
                         <label className="flex items-center gap-3">
 
-                            <input type="radio" name="payment" name="paymentMethod" value="Credit / Debit Card" onChange={handleChange}/>
+                            <input type="radio" name="payment" name="paymentMethod" value="Credit / Debit Card" onChange={handleChange} />
 
                             Credit / Debit Card
 

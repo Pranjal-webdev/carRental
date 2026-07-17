@@ -4,50 +4,79 @@ import car from "../assets/mobbg.jpg";
 import bgcar from "../assets/carbg.jpg";
 import { useEffect, useState, useActionState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import axios from "axios";
 
 const Registration = () => {
 
     const navigate = useNavigate();
     const [bgimg, setbgimg] = useState(bgcar);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [formData, setFormData] = useState({
-        name:"",
-        lastname:"",
-        email:"",
-        phone:"",
-        country:"",
-        state:"",
-        city:"",
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        state: "",
+        city: "",
+        password: "",
+        confirmPassword: ""
     });
-    const [isPending, setIsPending] = useState(false);
-    const [showSuccess, setshowSuccess]=useState(false);
 
-    const handleChange = (e)=>{
-        const {name, value} = e.target;
+    const handleChange = (e) => {
+        const { name, value } = e.target;
 
-        setFormData((prevData)=>({
+        setFormData((prevData) => ({
             ...prevData,
             [name]: value,
         }));
     };
 
-    const handlesubmit = async (e) =>{
-        e.preventDefault();
+    const handlesubmit = async (e) => {
 
-        setIsPending(true);
+    e.preventDefault();
 
-        await new Promise ((resolve)=>{
-            setTimeout(resolve,2000);
-        });
-        
-        setIsPending(false);
-        setshowSuccess(true);
-        
+    if (formData.password !== formData.confirmPassword) {
 
-        setTimeout(()=>{
-            setshowSuccess(false);
-            navigate("/home")
-        },1800);
+        alert("Passwords do not match");
+
+        return;
+
     }
+
+    try {
+
+        const res = await axios.post("/api/auth/register", {
+
+            firstName: formData.firstName,
+
+            lastName: formData.lastName,
+
+            email: formData.email,
+
+            phone: formData.phone,
+
+            state: formData.state,
+
+            city: formData.city,
+
+            password: formData.password
+
+        });
+
+        alert(res.data.message);
+
+        navigate("/login");
+
+    } catch (error) {
+
+        alert(error.response?.data?.message || "Registration Failed");
+
+    }
+
+};
 
     useEffect(() => {
         const changebackground = () => {
@@ -78,46 +107,56 @@ const Registration = () => {
                     <form onSubmit={handlesubmit}>
                         <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
                             <label htmlFor="name" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">Name : </label>
-                            <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your name" required />
+                            <input type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your name" required />
                         </div>
                         <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
                             <label htmlFor="lastname" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">Last Name : </label>
-                            <input type="text" id="lastname" name="lastname"  value={formData.lastname} onChange={handleChange} className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your last name" required />
+                            <input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your last name" required />
                         </div>
                         <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
                             <label htmlFor="email" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">Email : </label>
-                            <input type="email" id="email" name="email"  value={formData.email} onChange={handleChange} className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your email" required />
+                            <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your email" required />
                         </div>
                         <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
                             <label htmlFor="phone" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">Phone no : </label>
-                            <input type="tel" id="phone" name="phone"  value={formData.phone} onChange={handleChange} className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your phone no." maxLength={10} pattern="[6-9][0-9]{9}" required />
-                        </div>
-                        <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
-                            <label htmlFor="country" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">Country : </label>
-                            <input type="text" id="country" name="country"  value={formData.country} onChange={handleChange} className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your country" required />
+                            <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your phone no." maxLength={10} pattern="[6-9][0-9]{9}" required />
                         </div>
                         <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
                             <label htmlFor="state" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">State : </label>
-                            <input type="text" id="state" name="state"  value={formData.state} onChange={handleChange} className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your state" required />
+                            <input type="text" id="state" name="state" value={formData.state} onChange={handleChange} className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your state" required />
                         </div>
                         <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
                             <label htmlFor="city" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">City : </label>
-                            <input type="text" id="city" name="city"  value={formData.city} onChange={handleChange} className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your city" required />
+                            <input type="text" id="city" name="city" value={formData.city} onChange={handleChange} className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your city" required />
                         </div>
-                        <div className="flex justify-center mt-10">
-                            <button type="submit" disabled={isPending} className="bg-orange-600 text-white w-24 sm:w-32 lg:w-40 mb-2 rounded-sm border border-white-2 font-semibold hover:bg-orange-700 transition all duration-300">{isPending ?"submitting...": "Register"}</button>
+                        <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
+                            <label htmlFor="password" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">Password :</label>
+                            <div className="relative w-full sm:w-72">
+                                <input type={showPassword ? "text" : "password"} id="password" name="password" value={formData.password} onChange={handleChange}
+                                    className="w-full border border-gray-400 rounded-sm pl-2 pr-10 h-9" placeholder="Enter your password" required />
+                                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
+                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                </button>
+                            </div>
                         </div>
-                    </form>
-                    {showSuccess && (
-                        <div className="fixed top-5 right-150 bg-white border-l-4 border-green-500 text-gray-800 rounded-lg shadow-2xl z-5-0 px-5 py-4">
-                            <h3 className="font-bold text-green-600">
-                                Registration successful!
-                            </h3>
-                            <p className="text-sm text-gray-600">
-                                Your account has been created successfully.
+
+                        <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
+                            <label htmlFor="confirmPassword" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">Confirm Password :</label>
+                            <div className="relative w-full sm:w-72">
+                                <input type={showConfirmPassword ? "text" : "password"} id="confirmPassword" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange}
+                                    className="w-full border border-gray-400 rounded-sm pl-2 pr-10 h-9" placeholder="Confirm your password" required/>
+                                <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
+                                    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                                </button>
+                            </div>
+                        </div>
+                        <div className="mt-6 text-center">
+                            <button type="submit" className="w-80 h-12 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg transition duration-300">Create Account</button>
+                            <p className="mt-5 text-gray-600">Already have an account?
+                                <Link to="/login" className="text-orange-600 font-semibold ml-2 hover:underline">Login</Link>
                             </p>
                         </div>
-                    )}
+                    </form>
                 </div>
             </div>
         </div >

@@ -7,3 +7,25 @@ body,
     margin: 0;
     padding: 0;
 }
+
+@keyframes carMove {
+
+    0% {
+
+        transform: translateX(-180px);
+
+    }
+
+    100% {
+
+        transform: translateX(550px);
+
+    }
+
+}
+
+.animate-car{
+
+    animation: carMove 2.2s linear infinite;
+
+}
