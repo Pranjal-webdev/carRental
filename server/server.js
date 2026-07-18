@@ -6,6 +6,7 @@ import cors from "cors";
 import cartRoutes from "./routes/cartRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import dashboardRoutes from "./routes/dashboardRoutes.js";
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use("/api/cars", carRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/booking", bookingRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 8000;

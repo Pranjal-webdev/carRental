@@ -5,7 +5,6 @@ const userSchema = new mongoose.Schema({
     firstName: {
 
         type: String,
-
         required: true
 
     },
@@ -13,7 +12,6 @@ const userSchema = new mongoose.Schema({
     lastName: {
 
         type: String,
-
         required: true
 
     },
@@ -21,9 +19,7 @@ const userSchema = new mongoose.Schema({
     email: {
 
         type: String,
-
         required: true,
-
         unique: true
 
     },
@@ -31,7 +27,6 @@ const userSchema = new mongoose.Schema({
     phone: {
 
         type: String,
-
         required: true
 
     },
@@ -39,7 +34,6 @@ const userSchema = new mongoose.Schema({
     state: {
 
         type: String,
-
         required: true
 
     },
@@ -47,7 +41,6 @@ const userSchema = new mongoose.Schema({
     city: {
 
         type: String,
-
         required: true
 
     },
@@ -55,7 +48,6 @@ const userSchema = new mongoose.Schema({
     password: {
 
         type: String,
-
         required: true
 
     },
@@ -63,9 +55,7 @@ const userSchema = new mongoose.Schema({
     role: {
 
         type: String,
-
         enum: ["user", "admin"],
-
         default: "user"
 
     }

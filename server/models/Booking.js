@@ -14,21 +14,13 @@ const bookingSchema = new mongoose.Schema({
     ],
 
     fullName: String,
-
     email: String,
-
     phone: String,
-
     address: String,
-
     city: String,
-
     state: String,
-
     pincode: String,
-
     paymentMethod: String,
-
     totalPrice: Number
 
 },
