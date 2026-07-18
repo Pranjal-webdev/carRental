@@ -13,6 +13,11 @@ import ProtectedRoute from "./Components/ProtectedRoute";
 import Dashboard from "./Pages/Admin/Dashboard";
 import AdminProtectedRoute from "./Components/AdminProtectedRoute";
 import AdminLayout from "./Components/AdminLayout";
+import Cars from "./Pages/Admin/Cars";
+import AddCar from "./Pages/Admin/AddCar";
+import Booking from "./Pages/Admin/Booking";
+import Users from "./Pages/Admin/Users";
+
 
 const App = () => {
 
@@ -91,6 +96,14 @@ const App = () => {
         >
 
           <Route index element={<Dashboard />} />
+
+          <Route path="cars" element={<Cars />} />
+
+          <Route path="add-car" element={<AddCar />} />
+
+          <Route path="booking" element={<Booking />} />
+
+          <Route path="users" element={<Users />} />
 
         </Route>
 

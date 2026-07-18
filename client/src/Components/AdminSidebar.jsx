@@ -60,7 +60,7 @@ const AdminSidebar = () => {
                     <FaUsers />
                     Users
                 </NavLink>
-
+                
                 <button
                     onClick={logout}
                     className="flex items-center gap-3 p-3 rounded bg-red-600 hover:bg-red-700 mt-10"
