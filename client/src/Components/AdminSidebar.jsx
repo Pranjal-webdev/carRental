@@ -46,7 +46,7 @@ const AdminSidebar = () => {
                 </NavLink>
 
                 <NavLink
-                    to="/admin/bookings"
+                    to="/admin/booking"
                     className="flex items-center gap-3 p-3 rounded hover:bg-orange-600"
                 >
                     <FaClipboardList />

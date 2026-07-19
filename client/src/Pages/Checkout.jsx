@@ -225,7 +225,7 @@ const Checkout = () => {
 
                         <label className="flex items-center gap-3">
 
-                            <input type="radio" name="payment" name="paymentMethod" value="Credit / Debit Card" onChange={handleChange} />
+                            <input type="radio" name="paymentMethod" value="Credit / Debit Card" onChange={handleChange} />
 
                             Credit / Debit Card
 

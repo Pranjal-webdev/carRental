@@ -17,7 +17,7 @@ const Booking = () => {
 
             const res = await axios.get("/api/booking");
 
-            setBookings(res.data);
+            setBookings(res.data.bookings);
 
         }
 
@@ -27,6 +27,21 @@ const Booking = () => {
 
         }
 
+    };
+
+    const updateStatus = async (id, status) => {
+
+        try{
+            await axios.patch(`/api/booking/${id}`),{
+                status
+            };
+
+            fetchBookings();
+        }
+
+        catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -47,6 +62,8 @@ const Booking = () => {
                         <th>City</th>
                         <th>Payment</th>
                         <th>Total</th>
+                        <th>Status</th>
+                        <th>Action</th>
 
                     </tr>
 
@@ -98,6 +115,44 @@ const Booking = () => {
                                     <td>
 
                                         ₹ {booking.totalPrice}
+
+                                    </td>
+
+                                    <td>
+
+                                        <span
+                                            className={`px-3 py-1 rounded-full text-white text-sm
+
+                                                ${
+                                                    booking.status === "Pending"
+                                                    ? "bg-yellow-500"
+
+                                                    : booking.status === "Approved"
+                                                    ? "bg-green-600"
+
+                                                    : booking.status === "Rejected"
+                                                    ? "bg-red-600"
+
+                                                    : "bg-blue-600"
+                                                }`}
+                                        >
+
+                                            {booking.status}
+
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+                                        <button onClick={()=>updateStatus(booking._id,"Approved")} className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">
+                                            Approve
+                                        </button>
+                                        <button onClick={()=>updateStatus(booking._id,"Rejected")} className="bg-green-600 hover:bg-red-700 text-white px-3 py-1 rounded">
+                                            Reject
+                                        </button>
+                                        <button onClick={()=>updateStatus(booking._id,"Completed")} className="bg-green-600 hover:bg-blue-700 text-white px-3 py-1 rounded">
+                                            Complete
+                                        </button>
 
                                     </td>
 

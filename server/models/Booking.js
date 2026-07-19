@@ -21,9 +21,21 @@ const bookingSchema = new mongoose.Schema({
     state: String,
     pincode: String,
     paymentMethod: String,
-    totalPrice: Number
+    totalPrice: Number,
+
+    status: {
+        type: String,
+        enum: ["Pending", "Approved", "Rejected", "Completed"],
+        default: "Pending"
+    },
+
+    bookedAt: {
+        type: Date,
+        default: Date.now
+}
 
 },
+
 {
     timestamps: true
 });
