@@ -17,6 +17,9 @@ import Cars from "./Pages/Admin/Cars";
 import AddCar from "./Pages/Admin/AddCar";
 import Booking from "./Pages/Admin/Booking";
 import Users from "./Pages/Admin/Users";
+import MyBookings from "./Pages/MyBooking";
+import NoResults from "./pages/NoResults";
+import Feedback from "./pages/Feedback";
 
 
 const App = () => {
@@ -27,8 +30,12 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Registration />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/my-bookings" element={<MyBookings />} />
+        <Route path="/feedback" element={<Feedback />} />
 
         <Route element={<Layout />}>
+
+          <Route path="/no-results" element={<NoResults />} />
 
           <Route
             path="/home"
@@ -101,9 +108,13 @@ const App = () => {
 
           <Route path="add-car" element={<AddCar />} />
 
+          <Route path="add-car/:id" element={<AddCar />} />
+
           <Route path="booking" element={<Booking />} />
 
           <Route path="users" element={<Users />} />
+
+          <Route path="feedback" element={<Feedback />} />
 
         </Route>
 

@@ -17,6 +17,8 @@ const Booking = () => {
 
             const res = await axios.get("/api/booking");
 
+            console.log(res.data.bookings);
+
             setBookings(res.data.bookings);
 
         }
@@ -31,16 +33,38 @@ const Booking = () => {
 
     const updateStatus = async (id, status) => {
 
-        try{
-            await axios.patch(`/api/booking/${id}`),{
+        console.log("Button Clicked:", id, status);
+
+        try {
+            await axios.patch(`/api/booking/${id}`, {
                 status
-            };
+            });
 
             fetchBookings();
         }
 
         catch (error) {
+            console.log(error.response?.data);
             console.log(error);
+        }
+    };
+
+    const deleteBooking = async (id) => {
+
+        const confirmDelete = window.confirm("Are you sure you want to delete this booking?");
+
+        if (!confirmDelete) return;
+
+        try {
+
+            await axios.delete(`/api/booking/${id}`);
+            fetchBookings();
+        }
+
+        catch (error) {
+
+            console.log(error);
+
         }
     };
 
@@ -50,18 +74,23 @@ const Booking = () => {
 
             <h1 className="text-4xl font-bold mb-8"> All Bookings </h1>
 
-            <table className="w-full bg-white rounded-xl shadow-lg">
+            <div className="overflow-x-auto rounded-xl shadow-lg">
+
+                <table className="min-w-[1400px] bg-white">
 
                 <thead className="bg-green-900 text-white">
 
                     <tr>
 
                         <th className="p-4">Customer</th>
+                        <th>Car</th>
                         <th>Email</th>
                         <th>Phone</th>
                         <th>City</th>
                         <th>Payment</th>
                         <th>Total</th>
+                        <th>Pickup</th>
+                        <th>Return</th>
                         <th>Status</th>
                         <th>Action</th>
 
@@ -86,6 +115,14 @@ const Booking = () => {
 
                                         {booking.fullName}
 
+                                    </td>
+
+                                    <td className="p-3 min-w-[140px]">
+                                        {booking.cars.map((item) => (
+                                            <p key={item.carId._id}>
+                                                {item.carId.name} × {item.quantity}
+                                            </p>
+                                        ))}
                                     </td>
 
                                     <td>
@@ -120,20 +157,31 @@ const Booking = () => {
 
                                     <td>
 
+                                        {new Date(booking.pickupDate).toLocaleDateString("en-IN")}
+
+                                    </td>
+
+                                    <td>
+
+                                        {new Date(booking.returnDate).toLocaleDateString("en-IN")}
+
+                                    </td>
+
+                                    <td>
+
                                         <span
                                             className={`px-3 py-1 rounded-full text-white text-sm
 
-                                                ${
-                                                    booking.status === "Pending"
+                                                ${booking.status === "Pending"
                                                     ? "bg-yellow-500"
 
                                                     : booking.status === "Approved"
-                                                    ? "bg-green-600"
+                                                        ? "bg-green-600"
 
-                                                    : booking.status === "Rejected"
-                                                    ? "bg-red-600"
+                                                        : booking.status === "Rejected"
+                                                            ? "bg-red-600"
 
-                                                    : "bg-blue-600"
+                                                            : "bg-blue-600"
                                                 }`}
                                         >
 
@@ -143,16 +191,24 @@ const Booking = () => {
 
                                     </td>
 
-                                    <td>
-                                        <button onClick={()=>updateStatus(booking._id,"Approved")} className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">
-                                            Approve
-                                        </button>
-                                        <button onClick={()=>updateStatus(booking._id,"Rejected")} className="bg-green-600 hover:bg-red-700 text-white px-3 py-1 rounded">
-                                            Reject
-                                        </button>
-                                        <button onClick={()=>updateStatus(booking._id,"Completed")} className="bg-green-600 hover:bg-blue-700 text-white px-3 py-1 rounded">
-                                            Complete
-                                        </button>
+                                    <td className="p-3 min-w-[220px]">
+
+                                        <div className="grid grid-cols-2 gap-2">
+
+                                            <button onClick={() => updateStatus(booking._id, "Approved")} className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">
+                                                Approve
+                                            </button>
+                                            <button onClick={() => updateStatus(booking._id, "Rejected")} className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">
+                                                Reject
+                                            </button>
+                                            <button onClick={() => updateStatus(booking._id, "Completed")} className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">
+                                                Complete
+                                            </button>
+                                            <button onClick={() => deleteBooking(booking._id)} className="bg-gray-800 hover:bg-black text-white px-3 py-1 rounded">
+                                                Delete
+                                            </button>
+
+                                        </div>
 
                                     </td>
 
@@ -173,6 +229,8 @@ const Booking = () => {
                 </tbody>
 
             </table>
+
+            </div> 
 
         </div>
 

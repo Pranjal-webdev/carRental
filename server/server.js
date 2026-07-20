@@ -7,6 +7,7 @@ import cartRoutes from "./routes/cartRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
+import feedbackRoutes from "./routes/feedbackRoutes.js";
 
 dotenv.config();
 
@@ -35,6 +36,8 @@ app.use("/api/cart", cartRoutes);
 app.use("/api/booking", bookingRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/booking", bookingRoutes);
+app.use("/api/feedback", feedbackRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 8000;

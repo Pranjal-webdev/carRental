@@ -14,6 +14,11 @@ export const getDashboardStats = async (req, res) => {
 
         const bookings = await Booking.find();
 
+        const recentBookings = await Booking.find()
+        .populate("cars.carId")
+        .sort({ createdAt: -1 })
+        .limit(5);
+
         const revenue = bookings.reduce((sum, booking) => {
 
             return sum + booking.totalPrice;
@@ -28,7 +33,9 @@ export const getDashboardStats = async (req, res) => {
 
             totalBookings,
 
-            revenue
+            revenue,
+
+            recentBookings
 
         });
 

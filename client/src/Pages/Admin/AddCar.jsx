@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 
 const AddCar = () => {
 
@@ -16,6 +17,28 @@ const AddCar = () => {
         description: ""
 
     });
+    const { id } = useParams();
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+
+        if (id){
+            fetchCar();
+        }
+    },[id]);
+
+    const fetchCar = async () => {
+
+        try{
+            const res = await axios.get(`/api/cars/${id}`);
+            setFormData(res.data);
+        }
+
+        catch (error){
+            console.log(error);
+        }
+    };
+
 
     const handleChange = (e) => {
 
@@ -35,41 +58,38 @@ const AddCar = () => {
 
         try {
 
-            await axios.post("/api/cars/add", formData);
+            if (id) {
+                   
+                await axios.put(`/api/cars/${id}`, formData);
 
-            alert("Car Added Successfully");
+                alert("Car Updated Successfully");
 
-            setFormData({
+            }
 
-                name: "",
-                brand: "",
-                price: "",
-                fuel: "",
-                seats: "",
-                transmission: "",
-                image: "",
-                rating: "",
-                description: ""
+            else {
 
-            });
+                await axios.post("/api/cars/add", formData);
 
+                alert("Car Added Successfully");
+            }
+
+            navigate("/admin/cars");
         }
 
-        catch (error) {
+        catch (error){
 
             console.log(error);
 
-            alert("Failed to Add Car");
-
+            alert (id? "failed to update car":"failed to add car")
         }
+    };    
 
-    };
 
     return (
 
         <div className="p-8">
 
-            <h1 className="text-4xl font-bold mb-8">Add New Car</h1>
+            <h1 className="text-4xl font-bold mb-8">{id ? "Edit Car" : "Add New Car"}</h1>
 
             <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-xl p-8 grid grid-cols-2 gap-6">
 
@@ -91,7 +111,7 @@ const AddCar = () => {
 
                 <textarea name="description" placeholder="Description" value={formData.description} onChange={handleChange} className="border p-3 rounded-lg col-span-2 h-36" required />
 
-                <button className="bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg h-12 col-span-2"> Add Car</button>
+                <button className="bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg h-12 col-span-2">{id ? "Update Car" : "Add Car"}</button>
 
             </form>
 

@@ -96,22 +96,22 @@ const Bigcar = () => {
 
     return (
         <div>
-            <div className="max-w-4xl mx-auto mt-10 bg-white rounded-2xl shadow-2xl p-8">
+            <div className="max-w-5xl mx-auto mt-10 bg-white rounded-2xl shadow-2xl p-4 md:p-8">
                 <div key={car._id} className="border boder-1n rounded-lg">
-                    <img src={car.image} alt={car.name} className="w-full h-115 object-cover rounded-xl shadow-lg" />
+                    <img src={car.image} alt={car.name} className="w-full h-64 sm:h-80 md:h-[460px] object-cover rounded-xl shadow-lg" />
                 </div>
-                <div className="flex gap-50">
-                    <div className="items-center">
+                <div className="flex flex-col md:flex-row md:justify-between gap-8 md:gap-20 mt-6">
+                    <div className="items-center md:text-left">
                         <h1 className="text-3xl font-bold text-gray-900 mt-5">{car.name}</h1>
                         <p className="text-4xl font-extrabold text-orange-600 mt-6">₹ {car.price}<span className="text-xl text-gray-500 font-medium"> / day</span></p>
-                        <div className="flex gap-4 mt-8 w-80 h-10">
-                            <button className="bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-lg font-semibold shadow-lg">Book Now</button>
+                        <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-4 mt-8">
+                            
                             {
                                 quantity === 0 ?
 
-                                <button className="text-orange-600 border border-orange-600 w-40 h-10 rounded-lg hover:bg-orange-700 hover:text-white" onClick={addToCart}>Add To Cart</button>
+                                <button className="text-orange-600 border border-orange-600 w-full sm:w-40 h-10 rounded-lg hover:bg-orange-700 hover:text-white" onClick={addToCart}>Add To Cart</button>
                                 :
-                                <div className="flex items-center justify-between w-40 h-10 border border-black rounded-lg">
+                                <div className="flex items-center justify-between w-full sm:w-40 h-10 border border-black rounded-lg">
 
                                     <button className="w-12 h-full bg-orange-600 text-white text-xl hover:bg-orange-700" onClick={decreaseQuantity}>-</button>
 
@@ -123,13 +123,13 @@ const Bigcar = () => {
                             }
                         </div>
                     </div>
-                    <div>
-                        <p className="text-gray-600 text-lg mt-4 leading-8">Brand : {car.brand}</p>
-                        <p className="text-gray-600 text-lg mt-4 leading-8">Description : {car.description}</p>
-                        <p className="text-gray-600 text-lg mt-4 leading-8">Fuel : {car.fuel}</p>
-                        <p className="text-gray-600 text-lg mt-4 leading-8">Seats : {car.seats}</p>
-                        <p className="text-gray-600 text-lg mt-4 leading-8">Transmission : {car.transmission}</p>
-                        <p className="text-gray-600 text-lg mt-4 leading-8">Rating : {car.rating}</p>
+                    <div className="text-gray-600 text-base md:text-lg mt-3 leading-8">
+                        <p>Brand : {car.brand}</p>
+                        <p>Description : {car.description}</p>
+                        <p>Fuel : {car.fuel}</p>
+                        <p>Seats : {car.seats}</p>
+                        <p>Transmission : {car.transmission}</p>
+                        <p>Rating : {car.rating}</p>
                     </div>
                 </div>
             </div>

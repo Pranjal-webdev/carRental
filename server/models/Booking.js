@@ -25,13 +25,29 @@ const bookingSchema = new mongoose.Schema({
 
     status: {
         type: String,
-        enum: ["Pending", "Approved", "Rejected", "Completed"],
+        enum: ["Pending", "Approved", "Rejected", "Completed","Cancelled"],
         default: "Pending"
     },
 
     bookedAt: {
         type: Date,
         default: Date.now
+},
+
+    pickupDate: {
+    type: Date,
+    required: true
+},
+
+returnDate: {
+    type: Date,
+    required: true
+},
+
+user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true
 }
 
 },

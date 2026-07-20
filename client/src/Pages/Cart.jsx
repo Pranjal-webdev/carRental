@@ -90,15 +90,15 @@ const decreaseQuantity = async (carId) => {
 
     return (
 
-        <div className="p-8">
+        <div className="p-4 md:p-10">
 
             <h1 className="text-4xl font-bold text-center mb-8">
                 My Cart
             </h1>
 
-            <div className="flex justify-between gap-8">
+            <div className="flex flex-col lg:flex-row gap-8">
 
-                <div className="w-[70%] border border-gray-300 rounded-xl p-5">
+                <div className="w-full lg:w-[70%] border border-gray-300 rounded-xl p-4 md:p-5">
 
                     {
                         cart.length === 0 ?
@@ -119,13 +119,13 @@ const decreaseQuantity = async (carId) => {
 
                                 <div key={item._id} className="flex items-center justify-between border-b py-5">
 
-                                    <div className="flex items-center gap-5">
+                                    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-left">
 
-                                        <img src={item.carId.image} alt={item.carId.name} className="w-40 h-28 object-cover rounded-lg" />
+                                        <img src={item.carId.image} alt={item.carId.name} className="w-36 h-28 sm:w-40 sm:h-28 md:w-40 md:h-28 object-cover rounded-lg" />
 
                                         <div>
 
-                                            <h2 className="text-2xl font-bold">{item.carId.name}</h2>
+                                            <h2 className="text-xl md:text-2xl ont-bold">{item.carId.name}</h2>
 
                                             <p className="text-gray-600 mt-2">{item.carId.brand}</p>
 
@@ -135,7 +135,7 @@ const decreaseQuantity = async (carId) => {
 
                                     </div>
 
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex justify-center items-center gap-4">
 
                                         <button className="bg-orange-600 text-white w-10 h-10 rounded-lg hover:bg-orange-700" onClick={() => decreaseQuantity(item.carId._id)}>-</button>
 
@@ -155,7 +155,7 @@ const decreaseQuantity = async (carId) => {
 
                 </div>
 
-                <div className="w-[28%] border border-gray-300 rounded-xl p-5 h-fit">
+                <div className="w-full lg:w-[28%] border border-gray-300 rounded-xl p-5 h-fit">
 
                     <h2 className="text-2xl font-bold mb-5">
                         Order Summary

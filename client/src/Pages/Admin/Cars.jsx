@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Cars = () => {
 
     const [cars, setCars] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -27,6 +29,28 @@ const Cars = () => {
 
         }
 
+    };
+
+    const deleteCar = async (id)=>{
+
+        const confirmDelete = window.confirm("Are you sure you want to delete this car?");
+
+        if (!confirmDelete) return;
+
+        try{
+
+            await axios.delete(`/api/cars/${id}`);
+            alert("Car Deleted Successfully");
+            fetchCars();
+
+        }
+
+        catch (error){
+
+            Console.log(error);
+            alert("Failed to Delete Car");
+
+        }
     };
 
     return (
@@ -92,11 +116,11 @@ const Cars = () => {
 
                                 <td>
 
-                                    <button className="bg-blue-500 text-white px-3 py-1 rounded mr-2">
+                                    <button onClick={() => navigate(`/admin/add-car/${car._id}`)} className="bg-blue-500 text-white px-3 py-1 rounded mr-2">
                                         Edit
                                     </button>
 
-                                    <button className="bg-red-600 text-white px-3 py-1 rounded">
+                                    <button onClick={() => deleteCar(car._id)} className="bg-red-600 text-white px-3 py-1 rounded">
                                         Delete
                                     </button>
 

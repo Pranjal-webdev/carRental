@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { FaTachometerAlt,FaCar,FaPlusCircle,FaClipboardList,FaUsers,FaSignOutAlt } from "react-icons/fa";
+import { MdFeedback } from "react-icons/md";
 
 const AdminSidebar = () => {
 
@@ -15,9 +16,9 @@ const AdminSidebar = () => {
 
     return (
 
-        <div className="w-64 bg-green-950 text-white min-h-screen p-5">
+        <div className="w-52 bg-green-950 text-white min-h-screen p-5">
             
-            <h1 className="text-3xl font-bold mb-10 text-center">Admin Panel</h1>
+            <h1 className="text-2xl font-bold mb-10 text-center">Admin Panel</h1>
 
             <div className="flex flex-col gap-4">
 
@@ -59,6 +60,14 @@ const AdminSidebar = () => {
                 >
                     <FaUsers />
                     Users
+                </NavLink>
+
+                <NavLink
+                    to="/admin/feedback"
+                    className="flex items-center gap-3 p-3 rounded hover:bg-orange-600"
+                >
+                    <MdFeedback />
+                    Feedbacks
                 </NavLink>
                 
                 <button

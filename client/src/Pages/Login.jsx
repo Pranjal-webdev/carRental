@@ -135,7 +135,7 @@ const Login = () => {
 
                     <button className="w-full h-11 bg-orange-600 hover:bg-orange-700 rounded text-white font-bold">Login</button>
 
-                    <p className="text-center mt-5"> Don't have an account? <Link to="/register" className="text-orange-400 ml-2 font-semibold">Register</Link></p>
+                    <p className="text-center mt-5"> Don't have an account? <Link to="/register" className="text-orange-700 ml-2 font-semibold">Register</Link></p>
 
                 </form>
 

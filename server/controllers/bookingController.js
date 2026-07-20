@@ -23,7 +23,11 @@ export const placeOrder = async (req, res) => {
 
             paymentMethod,
 
-            totalPrice
+            totalPrice,
+
+            pickupDate,
+
+            returnDate
 
         } = req.body;
 
@@ -40,6 +44,8 @@ export const placeOrder = async (req, res) => {
         }
 
         const booking = new Booking({
+
+            user: req.user.id,
 
             cars: cart.map((item) => ({
 
@@ -65,7 +71,11 @@ export const placeOrder = async (req, res) => {
 
             paymentMethod,
 
-            totalPrice
+            totalPrice,
+
+            pickupDate,
+
+            returnDate
 
         });
 
@@ -112,6 +122,7 @@ export const getAllBookings = async (req,res)=>{
     }
 
     catch (error){
+        console.log(error);
 
         res.status(500).json({
             success: false,
@@ -123,6 +134,7 @@ export const getAllBookings = async (req,res)=>{
 export const updateBookingStatus = async(req,res)=>{
 
     try{
+        console.log(req.body);
         const booking = await Booking.findById(req.params.id);
 
         if (!booking){
@@ -189,4 +201,68 @@ export const deleteBooking = async (req,res)=>{
             message: error.message
         });
     }
-}
+};
+
+export const getMyBookings = async (req, res) => {
+
+    try {
+
+        const bookings = await Booking.find({
+            user: req.user.id
+        })
+        .populate("cars.carId")
+        .sort({ createdAt: -1 });
+
+        res.status(200).json({
+            success: true,
+            bookings
+        });
+
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+};
+
+export const cancelBooking = async (req, res) => {
+
+    try {
+
+        const booking = await Booking.findById(req.params.id);
+
+        if (!booking) {
+
+            return res.status(404).json({
+                success: false,
+                message: "Booking Not Found"
+            });
+
+        }
+        if (booking.status=="pending"){
+
+            return res.status(400).json({
+                success: false,
+                message: "Only Pending Bookings can be cancelled"
+            })
+        }
+        booking.status = "Cancelled";
+        await booking.save();
+
+        res.status(200).json({
+            success: true,
+            message: "Booking Cancelled Successfully"
+        });
+    }
+    catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
+    }
+
+};

@@ -13,6 +13,8 @@ const Dashboard = () => {
 
 });
 
+const [recentBookings, setRecentBookings] = useState([]);
+
 useEffect(() => {
 
     fetchDashboard();
@@ -25,7 +27,14 @@ const fetchDashboard = async () => {
 
         const res = await axios.get("/api/dashboard/stats");
 
-        setStats(res.data);
+        setStats({
+            totalCars: res.data.totalCars,
+            totalUsers: res.data.totalUsers,
+            totalBookings: res.data.totalBookings,
+            revenue: res.data.revenue
+});
+
+setRecentBookings(res.data.recentBookings);
 
     }
 
@@ -104,7 +113,7 @@ const fetchDashboard = async () => {
 
             </div>
 
-            //for recent booking 
+            
 
             <div className="bg-white mt-10 rounded-xl shadow-lg p-6">
 
@@ -126,15 +135,29 @@ const fetchDashboard = async () => {
                     </thead>
 
                     <tbody>
+                        {
+                            recentBookings.length > 0 ?
+                            recentBookings.map((booking) => (
+                                <tr key={booking._id} className="border-b">
+                                    <td className="p-3">{booking.fullName}</td>
+                                    <td className="p-3">
+                                        {booking.cars.map((item) => (
+                                            <p key={item.carId._id}>
+                                                {item.carId.name}
+                                            </p>
+                                        ))}
+                                    </td>
+                                    <td className="p-3">₹ {booking.totalPrice}</td>
+                                    <td className="p-3">{booking.status}</td>
 
-                        <tr>
+                                </tr>
+                            ))
+                            :
+                            <tr>
+                                <td colSpan="4" className="p-4 text-center">No Booking Yet</td>
+                            </tr>
 
-                            <td className="p-3">No Bookings Yet</td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>-</td>
-
-                        </tr>
+                        }
 
                     </tbody>
 

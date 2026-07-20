@@ -23,7 +23,11 @@ const Checkout = () => {
 
         pincode: "",
 
-        paymentMethod: ""
+        paymentMethod: "",
+
+        pickupDate: "",
+
+        returnDate: ""
 
     });
 
@@ -71,7 +75,9 @@ const Checkout = () => {
             !formData.city ||
             !formData.state ||
             !formData.pincode ||
-            !formData.paymentMethod
+            !formData.paymentMethod ||
+            !formData.pickupDate ||
+            !formData.returnDate
         ) {
 
             alert("Please fill all the fields.");
@@ -83,13 +89,20 @@ const Checkout = () => {
 
             setLoading(true);
 
+            const token = localStorage.getItem("token");
+
             await axios.post("/api/booking", {
 
                 ...formData,
 
                 totalPrice: total.toFixed(0)
 
-            });
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+            }
+        });
 
             setCart([]);
 
@@ -110,6 +123,20 @@ const Checkout = () => {
         }
 
     };
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (new Date(formData.pickupDate) < today) {
+        alert("Pickup Date cannot be in the past.");
+        return;
+    }
+
+    if (new Date(formData.returnDate) <= new Date(formData.pickupDate)) {
+        alert("Return Date must be after Pickup Date.");
+        return;
+    }
+
 
     const subtotal = cart.reduce((total, item) => {
 
@@ -165,21 +192,21 @@ const Checkout = () => {
 
     return (
 
-        <div className="p-8">
+        <div className="p-4 md:p-8">
 
-            <h1 className="text-4xl font-bold text-center mb-8">
+            <h1 className="text-3xl md:text-4xl font-bold text-center mb-8">
                 Checkout
             </h1>
 
-            <div className="flex justify-between gap-8">
+            <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
 
-                <div className="w-[65%] border border-gray-300 rounded-xl p-6">
+                <div className="w-full lg:w-[65%] border border-gray-300 rounded-xl p-4 md:p-6">
 
                     <h2 className="text-2xl font-bold mb-5">
                         Customer Information
                     </h2>
 
-                    <div className="grid grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
 
                         <input type="text" placeholder="Full Name" name="fullName" value={formData.fullName} onChange={handleChange} className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500" />
 
@@ -188,6 +215,10 @@ const Checkout = () => {
                         <input type="number" placeholder="Phone Number" name="phone" value={formData.phone} onChange={handleChange} className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500" />
 
                         <input type="text" placeholder="City" name="city" value={formData.city} onChange={handleChange} className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500" />
+
+                        <input type="date" className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500 w-full" name="pickupDate" value={formData.pickupDate} onChange={handleChange} required />
+
+                        <input type="date" className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500 w-full" name="returnDate" value={formData.returnDate} onChange={handleChange} required />
 
                     </div>
 
@@ -201,7 +232,7 @@ const Checkout = () => {
 
                     </div>
 
-                    <h2 className="text-2xl font-bold mt-8 mb-4">
+                    <h2 className="text-xl md:text-2xl font-bold mt-8 mb-4">
                         Payment Method
                     </h2>
 
@@ -235,7 +266,7 @@ const Checkout = () => {
 
                 </div>
 
-                <div className="w-[30%] border border-gray-300 rounded-xl p-6 h-fit">
+                <div className="w-full lg:w-[30%] border border-gray-300 rounded-xl p-4 md:p-6 h-fit">
 
                     <h2 className="text-2xl font-bold mb-5">
                         Order Summary
