@@ -10,7 +10,7 @@ const AdminLayout = () => {
 
             <AdminSidebar />
 
-            <div className="flex-1 bg-gray-100 p-8">
+            <div className="flex-1 bg-gray-100 min-h-screen p-8 overflow-auto">
                 <Outlet />
             </div>
 

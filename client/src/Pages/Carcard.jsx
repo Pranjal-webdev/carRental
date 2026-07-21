@@ -76,7 +76,7 @@ const Carcard = () => {
                 {displayCars.map((car)=>{
 
                     return (
-                        <div className="w-full max-w-[320px] border-black border-2 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition duration-300 text-center" key={car._id}>
+                        <div className="w-full max-w-[360px] border-black border-2 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition duration-300 text-center" key={car._id}>
 
                             <div><img src={car.image} alt={car.name} className="w-full h-44 object-cover border-black border-1" /></div>
 

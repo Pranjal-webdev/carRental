@@ -97,13 +97,20 @@ const Bigcar = () => {
     return (
         <div>
             <div className="max-w-5xl mx-auto mt-10 bg-white rounded-2xl shadow-2xl p-4 md:p-8">
+
                 <div key={car._id} className="border boder-1n rounded-lg">
+
                     <img src={car.image} alt={car.name} className="w-full h-64 sm:h-80 md:h-[460px] object-cover rounded-xl shadow-lg" />
+                    
                 </div>
+
                 <div className="flex flex-col md:flex-row md:justify-between gap-8 md:gap-20 mt-6">
+
                     <div className="items-center md:text-left">
+
                         <h1 className="text-3xl font-bold text-gray-900 mt-5">{car.name}</h1>
                         <p className="text-4xl font-extrabold text-orange-600 mt-6">₹ {car.price}<span className="text-xl text-gray-500 font-medium"> / day</span></p>
+
                         <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-4 mt-8">
                             
                             {

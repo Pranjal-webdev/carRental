@@ -115,11 +115,11 @@ setRecentBookings(res.data.recentBookings);
 
             
 
-            <div className="bg-white mt-10 rounded-xl shadow-lg p-6">
+            <div className="bg-white mt-10 rounded-xl shadow-lg p-6 overflow-x-auto">
 
                 <h2 className="text-2xl font-bold mb-5"> Recent Bookings </h2>
 
-                <table className="w-full">
+                <table className="min-w-[650px] w-full">
 
                     <thead>
 

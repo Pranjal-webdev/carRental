@@ -64,10 +64,6 @@ const Footer = () => {
                             <FaDotCircle className="mt-1" />
                             <li className="hover:text-yellow-600"><Link to="/about">About</Link></li>
                         </div>
-                        <div className="flex items-center gap-2 mb-2">
-                            <FaDotCircle className="mt-1" />
-                            <li className="hover:text-yellow-600"><Link to="/contact">Contact</Link></li>
-                        </div>
                     </ul>
                 </div>
 

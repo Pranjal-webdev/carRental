@@ -82,11 +82,11 @@ const decreaseQuantity = async (carId) => {
 
 }, 0);
 
-    const delivery = cart.length === 0 ? 0 : 2050;
+    const deliveryText = cart.length === 0 ? "-" : "Location Based";
 
     const gst = subtotal * 0.18;
 
-    const total = subtotal + gst + delivery;
+    const total = subtotal + gst;
 
     return (
 
@@ -173,7 +173,7 @@ const decreaseQuantity = async (carId) => {
 
                         <span>Delivery</span>
 
-                        <span>₹ {delivery}</span>
+                        <span className="text-green">{deliveryText}</span>
 
                     </div>
 

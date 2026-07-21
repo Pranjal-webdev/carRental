@@ -39,6 +39,11 @@ const bookingSchema = new mongoose.Schema({
     required: true
 },
 
+pickupLocation: {
+    type: String,
+    required: true,
+},
+
 returnDate: {
     type: Date,
     required: true

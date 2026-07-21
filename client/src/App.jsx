@@ -20,6 +20,8 @@ import Users from "./Pages/Admin/Users";
 import MyBookings from "./Pages/MyBooking";
 import NoResults from "./pages/NoResults";
 import Feedback from "./pages/Feedback";
+import About from "./Pages/About";
+import NavbarLayout from "./components/NavbarLayout";
 
 
 const App = () => {
@@ -30,12 +32,12 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Registration />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/my-bookings" element={<MyBookings />} />
         <Route path="/feedback" element={<Feedback />} />
 
         <Route element={<Layout />}>
 
           <Route path="/no-results" element={<NoResults />} />
+          <Route path="/my-bookings" element={<MyBookings />} />
 
           <Route
             path="/home"
@@ -115,6 +117,12 @@ const App = () => {
           <Route path="users" element={<Users />} />
 
           <Route path="feedback" element={<Feedback />} />
+
+        </Route>
+
+        <Route element={<NavbarLayout />}>
+
+           <Route path="/about" element={<About />} />
 
         </Route>
 

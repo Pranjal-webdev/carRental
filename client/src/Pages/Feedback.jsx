@@ -26,7 +26,7 @@ const Feedback = () => {
 
     useEffect(() => {
         fetchFeedbacks();
-    },[]);
+    }, []);
 
     const deleteFeedback = async (id) => {
 
@@ -47,77 +47,77 @@ const Feedback = () => {
         }
 
     };
+    
 
     return (
 
-        <div className="p-4 md:p-8">
+        <div className="overflow-x-auto">
 
             <h1 className="text-3xl md:text-4xl font-bold mb-6">
                 User Feedbacks
             </h1>
 
-            <div className="hidden md:block overflow-x-auto rounded-xl shadow-lg">
+            <div>
 
-                <table className="w-full bg-white">
+                <table className="w-full min-w-[600px] bg-white border-collapse">
 
                     <thead className="bg-green-900 text-white">
 
                         <tr>
-                            <th className="p-4">Feedbacks</th>
-                            <th className="p-4">Date</th>
-                            <th className="p-4">Action</th>
+                            <th className="p-4 text-left w-[60%]">Feedbacks</th>
+                            <th className="hidden md:table-cell p-4 text-center">Date</th>
+                            <th className="p-2 text-center">Action</th>
                         </tr>
 
                     </thead>
 
-                </table>
+                    <tbody>
 
-            </div>
+                        {
+                            feedbacks.length > 0 ?
 
-            <div className="md:hidden space-y-4">
+                                feedbacks.map((item) => (
 
-                {
-                    feedbacks.length > 0 ?
+                                    <tr key={item._id} className="border-b">
 
-                    feedbacks.map((item) => (
-
-                                    <div key={item._id} className="bg-white shadow rounded-lg p-4 border">
-
-                                        <p className="font-semibold break-words">
+                                        <td className="p-4 text-left">
                                             {item.message}
-                                        </p>
+                                        </td>
 
-                                        <p className="text-center text-[11px] md:text-base">
+                                        <td className="hidden md:table-cell text-center">
                                             {new Date(item.createdAt).toLocaleDateString("en-IN")}
-                                        </p>
+                                        </td>
 
-                                        <button
-                                            onClick={() => deleteFeedback(item._id)}
-                                            className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 md:px-4 md:py-2 text-xs md:text-base rounded"
-                                        >
-                                            Delete
+                                        <td  className="text-center">
 
-                                        </button>
-                                        
+                                             <button onClick={() => deleteFeedback(item._id)} className="bg-red-600 hover:bg-red-700 text-white px-2 md:px-4 md:py-2 py-1 text-xs md:tect-base whitespace-nowrap rounded">Delete</button>
+                                             
+                                        </td>
 
-                                    </div>
+                                    </tr>
 
                                 ))
 
                                 :
 
-                                <div className="p-8 text-center">
-                                    No Feedback Found
-                                </div>
-                            }
+                                <tr>
+                                    <td colSpan="3" className="p-8 text-center">
+                                        No Feedback Found
+                                    </td>
+                                </tr>
+                        }
 
-                    </div>
+                    </tbody>
+
+
+                </table>
 
             </div>
+
+        </div>
 
     );
 
 };
 
 export default Feedback;
-

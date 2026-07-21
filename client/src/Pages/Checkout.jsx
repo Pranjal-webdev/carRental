@@ -27,7 +27,9 @@ const Checkout = () => {
 
         pickupDate: "",
 
-        returnDate: ""
+        returnDate: "",
+
+        pickupLocation: ""
 
     });
 
@@ -77,7 +79,8 @@ const Checkout = () => {
             !formData.pincode ||
             !formData.paymentMethod ||
             !formData.pickupDate ||
-            !formData.returnDate
+            !formData.returnDate ||
+            !formData.pickupLocation
         ) {
 
             alert("Please fill all the fields.");
@@ -144,11 +147,11 @@ const Checkout = () => {
 
     }, 0);
 
-    const delivery = cart.length === 0 ? 0 : 1050;
+    const deliveryText = "As per Pickup Location";
 
     const gst = subtotal * 0.18;
 
-    const total = subtotal + delivery + gst;
+    const total = subtotal + gst;
 
 
     if (loading) {
@@ -219,6 +222,8 @@ const Checkout = () => {
                         <input type="date" className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500 w-full" name="pickupDate" value={formData.pickupDate} onChange={handleChange} required />
 
                         <input type="date" className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500 w-full" name="returnDate" value={formData.returnDate} onChange={handleChange} required />
+
+                         <input type="text" placeholder="Pickup Location" className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500 w-full" name="pickupLocation" value={formData.pickupLocation} onChange={handleChange} required />
 
                     </div>
 
@@ -310,11 +315,11 @@ const Checkout = () => {
 
                     </div>
 
-                    <div className="flex justify-between mb-3">
+                    <div className="flex justify-between mb-3 text-green-700 font-medium">
 
                         <span>Delivery</span>
 
-                        <span>₹ {delivery}</span>
+                        <span>{deliveryText}</span>
 
                     </div>
 

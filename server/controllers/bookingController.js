@@ -27,7 +27,9 @@ export const placeOrder = async (req, res) => {
 
             pickupDate,
 
-            returnDate
+            returnDate,
+
+            pickupLocation
 
         } = req.body;
 
@@ -75,7 +77,9 @@ export const placeOrder = async (req, res) => {
 
             pickupDate,
 
-            returnDate
+            returnDate,
+
+            pickupLocation
 
         });
 
