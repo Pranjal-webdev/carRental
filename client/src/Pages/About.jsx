@@ -5,7 +5,7 @@ const About = () => {
     return (
         <div className="bg-gray-100 min-h-screen">
 
-            <section className="bg-orange-700 text-white py-16 px-6 text-center">
+            <section className="bg-slate-800 text-white py-16 px-6 text-center">
                 <h1 className="text-4xl md:text-6xl font-bold mb-5">Car Rental House</h1>
                 <p className="max-w-3xl mx-auto text-lg text-gray-200">
                     Your trusted partner for comfortable, safe and premium car rental experiences. We provide luxury cars with reliable service at affordable prices.
@@ -48,7 +48,7 @@ const About = () => {
             </section>
 
 
-            <section className="bg-orange-700 text-white py-14 px-6 md:px-16">
+            <section className="bg-slate-800 text-white py-14 px-6 md:px-16">
 
                 <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">Why Choose Us?</h2>
 
