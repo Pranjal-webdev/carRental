@@ -11,6 +11,7 @@ const Login = () => {
     const navigate = useNavigate();
     const [bgimg, setBgimg] = useState(window.innerWidth < 640 ? mobbg : bgcar);
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
 
         email: "",
@@ -59,6 +60,8 @@ const Login = () => {
 
         e.preventDefault();
 
+        setLoading(true);
+
         try {
 
             const res = await axios.post("/api/auth/login", formData);
@@ -69,19 +72,21 @@ const Login = () => {
 
             localStorage.setItem("user", JSON.stringify(res.data.user));
 
-            alert(res.data.message);
+            setTimeout(()=>{
 
-            if (res.data.role === "admin") {
+                if (res.data.role === "admin") {
 
-                navigate("/admin");
+                    navigate("/admin");
 
-            }
+                }
 
-            else {
+                else {
 
-                navigate("/home");
+                    navigate("/home");
 
-            }
+                }
+
+            },2000);
 
         }
 
@@ -133,7 +138,20 @@ const Login = () => {
 
                     </div>
 
-                    <button className="w-full h-11 bg-orange-600 hover:bg-orange-700 rounded text-white font-bold">Login</button>
+                    <button type="submit" disabled={loading} className="w-full h-11 bg-orange-600 hover:bg-orange-700 rounded text-white font-bold flex justify-center items-center">
+                        
+                        {loading ? (
+
+                            <>
+                                <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent mr-2"></div>
+                                Logging In...
+
+                            </>
+                        ) : (
+                            
+                            "Login"
+                        )}
+                    </button>
 
                     <p className="text-center mt-5"> Don't have an account? <Link to="/register" className="text-orange-700 ml-2 font-semibold">Register</Link></p>
 

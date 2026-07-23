@@ -9,13 +9,18 @@ const AdminSidebar = () => {
 
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
-
+    const [loading, setLoading] = useState(false);
 
     const logout = () => {
 
-        localStorage.clear();
+        setLoading(true);
 
-        navigate("/login");
+        setTimeout(() => {
+
+            localStorage.clear();
+
+            navigate("/login");
+        },2000);
 
     };
 
@@ -102,15 +107,18 @@ const AdminSidebar = () => {
                     Feedbacks
                 </NavLink>
                 
-                <button
-                    onClick={()=>{
-                        logout();
-                        setOpen(false);
-                    }}
+                <button onClick={logout} disabled={loading}
                     className="flex items-center gap-3 p-3 rounded bg-red-600 hover:bg-red-700 mt-10"
                 >
                     <FaSignOutAlt />
-                    Logout
+                    {loading ? (
+                        <div className="flex items-center justify-center">
+                            <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent mr-2"></div>
+                        <span>Logging Out...</span>
+                        </div>
+                    ) : (
+                        "Logout"
+                    )}
                 </button>
 
             </div>
