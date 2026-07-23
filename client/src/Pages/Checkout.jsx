@@ -147,7 +147,7 @@ const Checkout = () => {
 
     }, 0);
 
-    const deliveryText = "As per Pickup Location";
+    const deliveryText = "Location Based";
 
     const gst = subtotal * 0.18;
 
@@ -315,11 +315,11 @@ const Checkout = () => {
 
                     </div>
 
-                    <div className="flex justify-between mb-3 text-green-700 font-medium">
+                    <div className="flex justify-between mb-3 font-medium">
 
                         <span>Delivery</span>
 
-                        <span>{deliveryText}</span>
+                        <span className="text-green-700">{deliveryText}</span>
 
                     </div>
 
