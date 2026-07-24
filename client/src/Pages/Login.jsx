@@ -74,6 +74,8 @@ const Login = () => {
 
             setTimeout(()=>{
 
+                setLoading(false);
+
                 if (res.data.role === "admin") {
 
                     navigate("/admin");
@@ -91,6 +93,8 @@ const Login = () => {
         }
 
         catch (error) {
+
+            setLoading(false);
 
             alert(error.response?.data?.message || "Login Failed");
 
