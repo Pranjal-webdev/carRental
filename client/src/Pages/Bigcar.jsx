@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../api";
 import { useParams } from "react-router-dom";
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
@@ -18,7 +18,7 @@ const Bigcar = () => {
 
         try {
 
-            const res = await axios.get("/api/cars");
+            const res = await api.get("/api/cars");
 
             const selectedCar = res.data.find((item) => item._id === id);
 
@@ -40,7 +40,7 @@ const Bigcar = () => {
 
     try {
 
-        const res = await axios.post("/api/cart", {
+        const res = await api.post("/api/cart", {
             carId: car._id
         });
 
@@ -59,7 +59,7 @@ const Bigcar = () => {
 
     try {
 
-        const res = await axios.patch(`/api/cart/increase/${car._id}`);
+        const res = await api.patch(`/api/cart/increase/${car._id}`);
 
         setQuantity(res.data.quantity);
         setCartCount((prev) => prev + 1);
@@ -76,7 +76,7 @@ const Bigcar = () => {
 
     try {
 
-        const res = await axios.patch(`/api/cart/decrease/${car._id}`);
+        const res = await api.patch(`/api/cart/decrease/${car._id}`);
 
         setQuantity(res.data.quantity);
         setCartCount((prev) => prev - 1);

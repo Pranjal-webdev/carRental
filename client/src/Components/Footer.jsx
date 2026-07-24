@@ -6,7 +6,7 @@ import { FaClock } from "react-icons/fa";
 import { FaLocationPin } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
+import api from "../api";
 
 const Footer = () => {
 
@@ -22,7 +22,7 @@ const Footer = () => {
 
     try {
 
-        await axios.post("/api/feedback", {
+        await api.post("/api/feedback", {
             message
         });
 

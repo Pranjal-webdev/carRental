@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api";
 import { useNavigate } from "react-router-dom";
 
 const Cars = () => {
@@ -17,7 +17,7 @@ const Cars = () => {
 
         try {
 
-            const res = await axios.get("/api/cars");
+            const res = await api.get("/api/cars");
 
             setCars(res.data);
 
@@ -39,7 +39,7 @@ const Cars = () => {
 
         try {
 
-            await axios.delete(`/api/cars/${id}`);
+            await api.delete(`/api/cars/${id}`);
             alert("Car Deleted Successfully");
             fetchCars();
 

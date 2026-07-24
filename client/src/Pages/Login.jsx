@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../api";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import logo from "../assets/logocar.png";
@@ -64,7 +64,7 @@ const Login = () => {
 
         try {
 
-            const res = await axios.post("/api/auth/login", formData);
+            const res = await api.post("/api/auth/login", formData);
 
             localStorage.setItem("token", res.data.token);
 

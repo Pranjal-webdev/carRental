@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api";
 import { useNavigate } from "react-router-dom";
 
 const MyBookings = () => {
@@ -19,7 +19,7 @@ const MyBookings = () => {
 
             const token = localStorage.getItem("token");
 
-            const res = await axios.get("/api/booking/my-bookings", {
+            const res = await api.get("/api/booking/my-bookings", {
 
                 headers: {
 
@@ -53,7 +53,7 @@ const MyBookings = () => {
 
             const token = localStorage.getItem("token");
 
-            await axios.patch(
+            await api.patch(
 
                 `/api/booking/cancel/${id}`,
 

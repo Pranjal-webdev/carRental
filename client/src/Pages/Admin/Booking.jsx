@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api";
 
 const Booking = () => {
 
@@ -16,7 +16,7 @@ const Booking = () => {
 
         try {
 
-            const res = await axios.get("/api/booking");
+            const res = await api.get("/api/booking");
 
             console.log(res.data.bookings);
 
@@ -37,7 +37,7 @@ const Booking = () => {
         console.log("Button Clicked:", id, status);
 
         try {
-            await axios.patch(`/api/booking/${id}`, {
+            await api.patch(`/api/booking/${id}`, {
                 status
             });
 
@@ -58,7 +58,7 @@ const Booking = () => {
 
         try {
 
-            await axios.delete(`/api/booking/${id}`);
+            await api.delete(`/api/booking/${id}`);
             fetchBookings();
         }
 

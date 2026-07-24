@@ -4,9 +4,9 @@ const NoResults = () => {
 
     return (
 
-        <div className="min-h-[70vh] flex items-center justify-center px-4">
+        <div className="min-h-[70vh] flex items-center justify-center">
 
-            <div className="bg-white shadow-md rounded-xl p-8 text-center">
+            <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-10 text-center w-full max-w-md">
 
                 <h1 className="text-3xl md:text-5xl font-bold text-gray-800">
                     No Results Found
@@ -18,7 +18,7 @@ const NoResults = () => {
 
                 <Link
                     to="/cars"
-                    className="mt-8 bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-lg"
+                    className="inline-block mt-8 bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-lg"
                 >
                     Browse All Cars
                 </Link>

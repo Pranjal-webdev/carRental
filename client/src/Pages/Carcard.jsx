@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../api";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 const Carcard = () => {
@@ -24,7 +24,7 @@ const Carcard = () => {
     useEffect(() => {
         const fetchCars = async () => {
             try {
-                const res = await axios.get("/api/cars");
+                const res = await api.get("/api/cars");
                 console.log(res.data);
                 setCars(res.data);
             } catch (error) {

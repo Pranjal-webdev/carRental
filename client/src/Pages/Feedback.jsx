@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api";
 
 const Feedback = () => {
 
@@ -9,7 +9,7 @@ const Feedback = () => {
 
         try {
 
-            const res = await axios.get("/api/feedback");
+            const res = await api.get("/api/feedback");
 
             setFeedbacks(res.data);
 
@@ -34,7 +34,7 @@ const Feedback = () => {
 
         try {
 
-            await axios.delete(`/api/feedback/${id}`);
+            await api.delete(`/api/feedback/${id}`);
 
             fetchFeedbacks();
 

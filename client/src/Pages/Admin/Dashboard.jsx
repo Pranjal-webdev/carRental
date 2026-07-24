@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api";
 import { FaCar, FaUsers, FaClipboardList, FaRupeeSign } from "react-icons/fa";
 
 const Dashboard = () => {
@@ -25,7 +25,7 @@ const fetchDashboard = async () => {
 
     try {
 
-        const res = await axios.get("/api/dashboard/stats");
+        const res = await api.get("/api/dashboard/stats");
 
         setStats({
             totalCars: res.data.totalCars,

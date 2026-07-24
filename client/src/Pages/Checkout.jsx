@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api";
 import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
@@ -39,7 +39,7 @@ const Checkout = () => {
 
             try {
 
-                const res = await axios.get("/api/cart");
+                const res = await api.get("/api/cart");
 
                 setCart(res.data);
 
@@ -94,7 +94,7 @@ const Checkout = () => {
 
             const token = localStorage.getItem("token");
 
-            await axios.post("/api/booking", {
+            await api.post("/api/booking", {
 
                 ...formData,
 

@@ -6,7 +6,7 @@ import { useEffect, useState, useActionState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import axios from "axios";
+import api from "../api";
 
 const Registration = () => {
 
@@ -48,7 +48,7 @@ const Registration = () => {
 
     try {
 
-        const res = await axios.post("/api/auth/register", {
+        const res = await api.post("/api/auth/register", {
 
             firstName: formData.firstName,
 

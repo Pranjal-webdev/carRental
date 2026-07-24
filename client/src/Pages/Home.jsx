@@ -1,7 +1,7 @@
 import React from "react";
 import cars from "../assets/bgcar01.jpg";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import api from "../api";
 import { FaShoppingCart } from "react-icons/fa";
 import { useContext, useEffect } from "react";
 import { CartContext } from "../context/CartContext";
@@ -14,7 +14,7 @@ const Home = () => {
 
     const fetchCart = async () => {
 
-        const res = await axios.get("/api/cart");
+        const res = await api.get("/api/cart");
 
         const total = res.data.reduce((sum, item) => {
 

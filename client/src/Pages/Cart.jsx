@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api";
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { Link } from "react-router-dom";
@@ -15,7 +15,7 @@ const Cart = () => {
 
             try {
 
-                const res = await axios.get("/api/cart");
+                const res = await api.get("/api/cart");
 
                 setCart(res.data);
 
@@ -35,9 +35,9 @@ const Cart = () => {
 
     try {
 
-        await axios.patch(`/api/cart/increase/${carId}`);
+        await api.patch(`/api/cart/increase/${carId}`);
 
-        const res = await axios.get("/api/cart");
+        const res = await api.get("/api/cart");
 
         setCart(res.data);
 
@@ -58,9 +58,9 @@ const decreaseQuantity = async (carId) => {
 
     try {
 
-        await axios.patch(`/api/cart/decrease/${carId}`);
+        await api.patch(`/api/cart/decrease/${carId}`);
 
-        const res = await axios.get("/api/cart");
+        const res = await api.get("/api/cart");
 
         setCart(res.data);
 

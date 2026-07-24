@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api";
 
 const Users = () => {
 
@@ -15,7 +15,7 @@ const Users = () => {
 
         try {
 
-            const res = await axios.get("/api/auth/users");
+            const res = await api.get("/api/auth/users");
 
             setUsers(res.data);
 

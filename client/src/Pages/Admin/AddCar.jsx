@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api";
 import { useParams, useNavigate } from "react-router-dom";
 
 const AddCar = () => {
@@ -30,7 +30,7 @@ const AddCar = () => {
     const fetchCar = async () => {
 
         try{
-            const res = await axios.get(`/api/cars/${id}`);
+            const res = await api.get(`/api/cars/${id}`);
             setFormData(res.data);
         }
 
@@ -60,7 +60,7 @@ const AddCar = () => {
 
             if (id) {
                    
-                await axios.put(`/api/cars/${id}`, formData);
+                await api.put(`/api/cars/${id}`, formData);
 
                 alert("Car Updated Successfully");
 
@@ -68,7 +68,7 @@ const AddCar = () => {
 
             else {
 
-                await axios.post("/api/cars/add", formData);
+                await api.post("/api/cars/add", formData);
 
                 alert("Car Added Successfully");
             }
