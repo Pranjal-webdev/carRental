@@ -8,6 +8,13 @@ import bookingRoutes from "./routes/bookingRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
 import feedbackRoutes from "./routes/feedbackRoutes.js";
+import dns from "dns";
+
+dns.setServers([
+    "1.1.1.1",
+    "8.8.8.8"
+
+])
 
 dotenv.config();
 
