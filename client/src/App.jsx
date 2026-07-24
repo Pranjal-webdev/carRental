@@ -18,10 +18,10 @@ import AddCar from "./Pages/Admin/AddCar";
 import Booking from "./Pages/Admin/Booking";
 import Users from "./Pages/Admin/Users";
 import MyBookings from "./Pages/MyBooking";
-import NoResults from "./pages/NoResults";
-import Feedback from "./pages/Feedback";
+import NoResults from "./Pages/NoResults";
+import Feedback from "./Pages/Feedback";
 import About from "./Pages/About";
-import NavbarLayout from "./components/NavbarLayout";
+import NavbarLayout from "./Components/NavbarLayout";
 
 
 const App = () => {
