@@ -8,12 +8,15 @@ const Cart = () => {
 
     const [cart, setCart] = useState([]);
     const { setCartCount } = useContext(CartContext);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
 
         const fetchCart = async () => {
 
             try {
+
+                setLoading(true);
 
                 const res = await api.get("/api/cart");
 
@@ -22,6 +25,12 @@ const Cart = () => {
             } catch (error) {
 
                 console.log(error);
+
+            }
+
+            finally {
+
+                setLoading(false);
 
             }
 
@@ -87,6 +96,21 @@ const decreaseQuantity = async (carId) => {
     const gst = subtotal * 0.18;
 
     const total = subtotal + gst;
+
+
+    if (loading) {
+
+    return (
+
+        <div className="min-h-screen flex justify-center items-center">
+
+            <div className="w-12 h-12 border-4 border-orange-600 border-t-transparent rounded-full animate-spin"></div>
+
+        </div>
+
+    );
+
+}
 
     return (
 

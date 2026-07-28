@@ -6,6 +6,7 @@ const MyBookings = () => {
 
     const [bookings, setBookings] = useState([]);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
 
@@ -16,6 +17,8 @@ const MyBookings = () => {
     const fetchBookings = async () => {
 
         try {
+
+            setLoading(true);
 
             const token = localStorage.getItem("token");
 
@@ -36,6 +39,12 @@ const MyBookings = () => {
         catch (error) {
 
             console.log(error);
+
+        }
+
+        finally {
+
+            setLoading(false);
 
         }
 
@@ -75,6 +84,21 @@ const MyBookings = () => {
         }
     };
 
+
+    if (loading) {
+
+    return (
+
+        <div className="min-h-screen flex justify-center items-center">
+
+            <div className="w-12 h-12 border-4 border-orange-600 border-t-transparent rounded-full animate-spin"></div>
+
+        </div>
+
+    );
+
+}
+
     return (
 
         <div className="p-8 bg-zinc-100">
@@ -99,7 +123,7 @@ const MyBookings = () => {
                                 </p>
 
                                 <button
-                                    onClick={() => navigate("/home")}
+                                    onClick={() => navigate("/cars")}
                                     className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg"
                                 >
                                     Explore Cars

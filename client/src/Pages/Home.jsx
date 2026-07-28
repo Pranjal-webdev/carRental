@@ -4,11 +4,14 @@ import { Link } from "react-router-dom";
 import api from "../api";
 import { FaShoppingCart } from "react-icons/fa";
 import { useContext, useEffect } from "react";
+import { useState } from "react";
+import logo from "../assets/logocar.png";
 import { CartContext } from "../context/CartContext";
 
 const Home = () => {
 
     const { cartCount, setCartCount } = useContext(CartContext);
+    const [pageLoading, setPageLoading] = useState(true);
 
     useEffect(() => {
 
@@ -29,6 +32,41 @@ const Home = () => {
     fetchCart();
 
 }, []);
+
+
+useEffect(() => {
+
+    const timer = setTimeout(() => {
+
+        setPageLoading(false);
+
+    }, 2000);
+
+    return () => clearTimeout(timer);
+
+}, []);
+
+
+if (pageLoading) {
+
+    return (
+
+        <div className="min-h-screen bg-black flex flex-col items-center justify-center">
+
+            <img src={logo} alt="Logo" className="w-32 animate-pulse"/>
+
+            <h1 className="text-white text-3xl font-bold mt-6">CAR RENTAL HOUSE</h1>
+            
+            <p className="text-gray-400 mt-3">Loading your journey...</p>
+
+            <div className="mt-8 w-16 h-16 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+
+        </div>
+
+    );
+
+}
+
 
     return (
         <div>

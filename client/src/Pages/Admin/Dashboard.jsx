@@ -4,6 +4,7 @@ import { FaCar, FaUsers, FaClipboardList, FaRupeeSign } from "react-icons/fa";
 
 const Dashboard = () => {
 
+    const [loading,setLoading]=useState(true);
     const [stats, setStats] = useState({
 
     totalCars: 0,
@@ -25,6 +26,8 @@ const fetchDashboard = async () => {
 
     try {
 
+        setLoading(true);
+
         const res = await api.get("/api/dashboard/stats");
 
         setStats({
@@ -32,7 +35,9 @@ const fetchDashboard = async () => {
             totalUsers: res.data.totalUsers,
             totalBookings: res.data.totalBookings,
             revenue: res.data.revenue
-});
+    }
+
+);
 
 setRecentBookings(res.data.recentBookings);
 
@@ -44,7 +49,29 @@ setRecentBookings(res.data.recentBookings);
 
     }
 
+    finally{
+
+    setLoading(false);
+
+}
+
 };
+
+
+if(loading){
+
+    return(
+
+        <div className="min-h-screen flex justify-center items-center">
+
+            <div className="w-12 h-12 border-4 border-orange-600 border-t-transparent rounded-full animate-spin"></div>
+
+        </div>
+
+    );
+
+}
+
 
     return (
         <div className="p-8 bg-gray-100 min-h-screen">

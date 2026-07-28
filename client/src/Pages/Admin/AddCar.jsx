@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 const AddCar = () => {
 
+    const [loading,setLoading]=useState(true);
     const [formData, setFormData] = useState({
 
         name: "",
@@ -30,6 +31,8 @@ const AddCar = () => {
     const fetchCar = async () => {
 
         try{
+
+            setLoading(true);
             const res = await api.get(`/api/cars/${id}`);
             setFormData(res.data);
         }
@@ -37,6 +40,12 @@ const AddCar = () => {
         catch (error){
             console.log(error);
         }
+
+        finally{
+
+            setLoading(false);
+
+       }
     };
 
 
@@ -83,6 +92,22 @@ const AddCar = () => {
             alert (id? "failed to update car":"failed to add car")
         }
     };    
+
+
+    if(loading){
+
+    return(
+
+        <div className="min-h-screen flex justify-center items-center">
+
+            <div className="w-12 h-12 border-4 border-orange-600 border-t-transparent rounded-full animate-spin"></div>
+
+        </div>
+
+    );
+
+}
+
 
 
     return (

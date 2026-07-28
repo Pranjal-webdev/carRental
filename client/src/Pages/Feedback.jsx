@@ -4,10 +4,13 @@ import api from "../api";
 const Feedback = () => {
 
     const [feedbacks, setFeedbacks] = useState([]);
+    const [loading,setLoading]=useState(true);
 
     const fetchFeedbacks = async () => {
 
         try {
+
+            setLoading(true);
 
             const res = await api.get("/api/feedback");
 
@@ -18,6 +21,12 @@ const Feedback = () => {
         catch (error) {
 
             console.log(error);
+
+        }
+
+        finally{
+
+            setLoading(false);
 
         }
 
@@ -47,6 +56,21 @@ const Feedback = () => {
         }
 
     };
+
+
+    if(loading){
+
+    return(
+
+        <div className="min-h-screen flex justify-center items-center">
+
+            <div className="w-12 h-12 border-4 border-orange-600 border-t-transparent rounded-full animate-spin"></div>
+
+        </div>
+
+    );
+
+}
     
 
     return (

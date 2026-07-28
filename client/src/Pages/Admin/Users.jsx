@@ -4,6 +4,7 @@ import api from "../../api";
 const Users = () => {
 
     const [users, setUsers] = useState([]);
+    const [loading,setLoading]=useState(true);
 
     useEffect(() => {
 
@@ -14,6 +15,8 @@ const Users = () => {
     const fetchUsers = async () => {
 
         try {
+
+            setLoading(true);
 
             const res = await api.get("/api/auth/users");
 
@@ -27,7 +30,29 @@ const Users = () => {
 
         }
 
+        finally{
+
+            setLoading(false);
+
+        }
+
     };
+
+
+    if(loading){
+
+    return(
+
+        <div className="min-h-screen flex justify-center items-center">
+
+            <div className="w-12 h-12 border-4 border-orange-600 border-t-transparent rounded-full animate-spin"></div>
+
+        </div>
+
+    );
+
+}
+
 
     return (
 

@@ -2,7 +2,7 @@ import React from "react";
 import logo from "../assets/logocar.png";
 import car from "../assets/mobbg.jpg";
 import bgcar from "../assets/carbg.jpg";
-import { useEffect, useState, useActionState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -14,7 +14,10 @@ const Registration = () => {
     const [bgimg, setbgimg] = useState(bgcar);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [submitLoading, setSubmitLoading] = useState(false);
+    const [pageLoading, setPageLoading] = useState(true);
     const [formData, setFormData] = useState({
+
         firstName: "",
         lastName: "",
         email: "",
@@ -36,47 +39,57 @@ const Registration = () => {
 
     const handlesubmit = async (e) => {
 
-    e.preventDefault();
+        e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
+        setSubmitLoading(true);
 
-        alert("Passwords do not match");
+        if (formData.password !== formData.confirmPassword) {
 
-        return;
+            setSubmitLoading(false);
 
-    }
+            alert("Passwords do not match");
 
-    try {
+            return;
 
-        const res = await api.post("/api/auth/register", {
+        }
 
-            firstName: formData.firstName,
+        try {
 
-            lastName: formData.lastName,
+            const res = await api.post("/api/auth/register", {
 
-            email: formData.email,
+                firstName: formData.firstName,
 
-            phone: formData.phone,
+                lastName: formData.lastName,
 
-            state: formData.state,
+                email: formData.email,
 
-            city: formData.city,
+                phone: formData.phone,
 
-            password: formData.password
+                state: formData.state,
 
-        });
+                city: formData.city,
 
-        alert(res.data.message);
+                password: formData.password
 
-        navigate("/login");
+            });
 
-    } catch (error) {
+            alert(res.data.message);
 
-        alert(error.response?.data?.message || "Registration Failed");
+            navigate("/login");
 
-    }
+        } catch (error) {
 
-};
+            alert(error.response?.data?.message || "Registration Failed");
+
+        }
+
+        finally {
+
+            setSubmitLoading(false);
+
+        }
+
+    };
 
     useEffect(() => {
         const changebackground = () => {
@@ -94,6 +107,47 @@ const Registration = () => {
 
         return () => window.removeEventListener("resize", changebackground);
     }, []);
+
+
+    useEffect(() => {
+
+        const timer = setTimeout(() => {
+
+            setPageLoading(false);
+
+        }, 2000);
+
+        return () => clearTimeout(timer);
+
+    }, []);
+
+
+    if (pageLoading) {
+
+        return (
+
+            <div className="min-h-screen bg-black flex flex-col items-center justify-center">
+
+                <img
+                    src={logo}
+                    alt="Logo"
+                    className="w-28 mb-6 animate-pulse"
+                />
+
+                <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+
+                <p className="text-white mt-5 text-lg">
+
+                    Loading...
+
+                </p>
+
+            </div>
+
+        );
+
+    }
+
 
     return (
         <div className="min-h-scren bg-contain bg-center bg-no-repeat bg-black pb-17" style={{ backgroundImage: `url(${bgimg})` }}>
@@ -144,15 +198,45 @@ const Registration = () => {
                             <label htmlFor="confirmPassword" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">Confirm Password :</label>
                             <div className="relative w-full sm:w-72">
                                 <input type={showConfirmPassword ? "text" : "password"} id="confirmPassword" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange}
-                                    className="w-full border border-gray-400 rounded-sm pl-2 pr-10 h-9" placeholder="Confirm your password" required/>
+                                    className="w-full border border-gray-400 rounded-sm pl-2 pr-10 h-9" placeholder="Confirm your password" required />
                                 <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
                                     {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                                 </button>
                             </div>
                         </div>
+
                         <div className="mt-6 text-center">
-                            <button type="submit" className="w-80 h-12 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg transition duration-300">Create Account</button>
+
+                            <button type="submit" disabled={submitLoading} className={`w-80 h-12 text-white font-bold rounded-lg transition duration-300
+
+                                ${submitLoading
+                                    ? "bg-orange-400 cursor-not-allowed"
+                                    : "bg-orange-600 hover:bg-orange-700"
+                                }`}
+                            >
+
+                                {
+
+                                    submitLoading ?
+
+                                        <div className="flex justify-center items-center gap-2">
+
+                                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+
+                                            Creating Account...
+
+                                        </div>
+
+                                        :
+
+                                        "Create Account"
+
+                                }
+
+                            </button>
+
                             <p className="mt-5 text-gray-600">Already have an account?
+
                                 <Link to="/login" className="text-orange-600 font-semibold ml-2 hover:underline">Login</Link>
                             </p>
                         </div>

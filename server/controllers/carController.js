@@ -29,9 +29,11 @@ export const getCarById = async (req, res) => {
 
         }
 
-        res.status(200).json(car);
+        res.json(car);
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         res.status(500).json({
 
@@ -40,8 +42,7 @@ export const getCarById = async (req, res) => {
         });
 
     }
-
-};
+}
 
 
 export const addCar = async (req, res) => {

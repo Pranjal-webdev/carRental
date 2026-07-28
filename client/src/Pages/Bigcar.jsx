@@ -4,6 +4,7 @@ import api from "../api";
 import { useParams } from "react-router-dom";
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
+import CarDetailSkeleton from "../components/Skeleton/CarDetailSkeleton";
 
 const Bigcar = () => {
 
@@ -11,6 +12,7 @@ const Bigcar = () => {
     const [car, setCar] = useState(null);
     const [quantity, setQuantity] = useState(0);
     const { setCartCount } = useContext(CartContext);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
 
@@ -18,15 +20,28 @@ const Bigcar = () => {
 
         try {
 
-            const res = await api.get("/api/cars");
+            setLoading(true);
 
-            const selectedCar = res.data.find((item) => item._id === id);
+            console.log("Car ID:", id);
 
-            setCar(selectedCar);
+            const res = await api.get(`/api/cars/${id}`);
+
+            console.log("SUCCESS:", res.data);
+
+            setCar(res.data);
 
         } catch (error) {
 
-            console.log(error);
+            console.log("STATUS =", error.response?.status);
+
+            console.log("DATA =", error.response?.data);
+
+            console.log("MESSAGE =", error.message);
+        }
+
+        finally {
+
+                setLoading(false);
 
         }
 
@@ -84,15 +99,25 @@ const Bigcar = () => {
     } catch (error) {
 
         console.log(error);
+        
 
     }
 
 };
 
     
-    if (!car) {
-        return <h1>Loading...</h1>;
+    if (loading) {
+        return <CarDetailSkeleton />
     }
+
+    if (!car) {
+
+    return <h1 className="text-center mt-10">Car Not Found</h1>;
+
+    }
+
+    console.log("loading =", loading);
+    console.log("car =", car);
 
     return (
         <div>

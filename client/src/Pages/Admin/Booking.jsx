@@ -5,6 +5,7 @@ const Booking = () => {
 
     const [bookings, setBookings] = useState([]);
     const [selectedBooking, setSelectedBooking] = useState(null);
+    const [loading,setLoading]=useState(true);
 
     useEffect(() => {
 
@@ -15,6 +16,8 @@ const Booking = () => {
     const fetchBookings = async () => {
 
         try {
+
+            setLoading(true);
 
             const res = await api.get("/api/booking");
 
@@ -27,6 +30,12 @@ const Booking = () => {
         catch (error) {
 
             console.log(error);
+
+        }
+
+        finally{
+
+            setLoading(false);
 
         }
 
@@ -68,6 +77,22 @@ const Booking = () => {
 
         }
     };
+
+
+    if(loading){
+
+    return(
+
+        <div className="min-h-screen flex justify-center items-center">
+
+            <div className="w-12 h-12 border-4 border-orange-600 border-t-transparent rounded-full animate-spin"></div>
+
+        </div>
+
+    );
+
+}
+
 
     return (
 

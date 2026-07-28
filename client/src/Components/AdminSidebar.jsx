@@ -4,12 +4,15 @@ import { FaTachometerAlt,FaCar,FaPlusCircle,FaClipboardList,FaUsers,FaSignOutAlt
 import { MdFeedback } from "react-icons/md";
 import { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 const AdminSidebar = () => {
 
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const { setCartCount } = useContext(CartContext);
 
     const logout = () => {
 
@@ -17,9 +20,16 @@ const AdminSidebar = () => {
 
         setTimeout(() => {
 
-            localStorage.clear();
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            localStorage.removeItem("role");
+
+            setCartCount(0);
+
+            setLoading(false);
 
             navigate("/login");
+
         },2000);
 
     };
@@ -27,7 +37,7 @@ const AdminSidebar = () => {
     return (
         <>
 
-            {/* Mobile Hamburger */}
+            {/*for Mobile Hamburger */}
             <button
                 onClick={() => setOpen(true)}
                 className="md:hidden fixed top-4 left-4 z-50 bg-green-950 text-white p-3 rounded-lg shadow-lg"
@@ -35,14 +45,14 @@ const AdminSidebar = () => {
                 <FaBars />
             </button>
 
-            {/* Sidebar */}
+            {/* for Sidebar */}
             <div
                 className={`fixed md:static top-0 left-0 h-full md:h-auto w-60 bg-green-950 text-white p-5 z-50 transform transition-transform duration-300
                 ${open ? "translate-x-0" : "-translate-x-full"}
                 md:translate-x-0 md:flex-shrink-0`}
             >
 
-                {/* Header */}
+                {/* for Header */}
                 <div className="flex justify-between items-center mb-10">
 
                     <h1 className="text-2xl font-bold">

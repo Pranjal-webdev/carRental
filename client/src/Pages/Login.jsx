@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import api from "../api";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import logo from "../assets/logocar.png";
 import bgcar from "../assets/carbg.jpg";
 import mobbg from "../assets/mobbg.jpg";
+import { CartContext } from "../context/CartContext";
 
 const Login = () => {
 
     const navigate = useNavigate();
+    const { fetchCartCount } = useContext(CartContext);
     const [bgimg, setBgimg] = useState(window.innerWidth < 640 ? mobbg : bgcar);
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -72,6 +74,8 @@ const Login = () => {
 
             localStorage.setItem("user", JSON.stringify(res.data.user));
 
+            await fetchCartCount();
+
             setTimeout(()=>{
 
                 setLoading(false);
@@ -100,7 +104,7 @@ const Login = () => {
 
         }
 
-    };
+    };  
 
     return (
 
