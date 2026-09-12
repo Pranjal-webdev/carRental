@@ -1,4 +1,3 @@
-import React from "react";
 import logo from "../assets/logocar.png";
 import { MdEmail } from "react-icons/md";
 import { FaDotCircle, FaPhoneAlt } from "react-icons/fa";

@@ -5,30 +5,21 @@ import { useNavigate } from "react-router-dom";
 const Checkout = () => {
 
     const [cart, setCart] = useState([]);
-    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
 
         fullName: "",
-
         email: "",
-
         phone: "",
-
         address: "",
-
         city: "",
-
         state: "",
-
         pincode: "",
-
         paymentMethod: "",
-
         pickupDate: "",
-
         returnDate: "",
-
         pickupLocation: ""
 
     });
@@ -101,27 +92,26 @@ const Checkout = () => {
                 totalPrice: total.toFixed(0)
 
             },
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`
-            }
-        });
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
 
             setCart([]);
-
-            setTimeout(() => {
-
-                setLoading(false);
-
-                navigate("/success");
-
-            }, 2500);
+            setLoading(false);
+            navigate("/success");
 
         } catch (error) {
 
             console.log(error);
 
             setLoading(false);
+
+            alert(
+                error.response?.data?.message ||
+                "Order Placement Failed"
+            );
 
         }
 
@@ -156,41 +146,41 @@ const Checkout = () => {
 
     if (loading) {
 
-    return (
+        return (
 
-        <div className="h-screen flex flex-col justify-center items-center bg-gray-100 overflow-hidden">
+            <div className="h-screen flex flex-col justify-center items-center bg-gray-100 overflow-hidden">
 
-            <div className="relative w-[500px] h-28 overflow-hidden">
+                <div className="relative w-[500px] h-28 overflow-hidden">
 
-                <div className="absolute animate-car">
+                    <div className="absolute animate-car">
 
-                    <img
-                        src="https://cdn-icons-png.flaticon.com/512/744/744465.png"
-                        alt="car"
-                        className="w-28 scale-x-[-1]"
-                    />
+                        <img
+                            src="https://cdn-icons-png.flaticon.com/512/744/744465.png"
+                            alt="car"
+                            className="w-28 scale-x-[-1]"
+                        />
+
+                    </div>
 
                 </div>
 
+                <h2 className="text-3xl font-bold mt-10 text-orange-600">
+
+                    Booking Your Dream Ride...
+
+                </h2>
+
+                <p className="text-gray-600 mt-3 text-lg">
+
+                    Please wait while we confirm your booking.
+
+                </p>
+
             </div>
 
-            <h2 className="text-3xl font-bold mt-10 text-orange-600">
+        );
 
-                Booking Your Dream Ride...
-
-            </h2>
-
-            <p className="text-gray-600 mt-3 text-lg">
-
-                Please wait while we confirm your booking.
-
-            </p>
-
-        </div>
-
-    );
-
-}
+    }
 
 
     return (
@@ -223,7 +213,7 @@ const Checkout = () => {
 
                         <input type="date" className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500 w-full" name="returnDate" value={formData.returnDate} onChange={handleChange} required />
 
-                         <input type="text" placeholder="Pickup Location" className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500 w-full" name="pickupLocation" value={formData.pickupLocation} onChange={handleChange} required />
+                        <input type="text" placeholder="Pickup Location" className="border border-gray-300 rounded-lg p-3 outline-none focus:border-orange-500 w-full" name="pickupLocation" value={formData.pickupLocation} onChange={handleChange} required />
 
                     </div>
 

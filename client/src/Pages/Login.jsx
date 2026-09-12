@@ -1,4 +1,4 @@
-import React, { useState,useEffect,useContext } from "react";
+import React, { useState, useContext } from "react";
 import api from "../api";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -17,7 +17,6 @@ const Login = () => {
     const [formData, setFormData] = useState({
 
         email: "",
-
         password: ""
 
     });
@@ -69,31 +68,24 @@ const Login = () => {
             const res = await api.post("/api/auth/login", formData);
 
             localStorage.setItem("token", res.data.token);
-
             localStorage.setItem("role", res.data.role);
-
             localStorage.setItem("user", JSON.stringify(res.data.user));
 
             await fetchCartCount();
 
-            setTimeout(()=>{
+            setLoading(false);
 
-                setLoading(false);
+            if (res.data.role === "admin") {
 
-                if (res.data.role === "admin") {
+                navigate("/admin");
 
-                    navigate("/admin");
+            }
 
-                }
+            else {
 
-                else {
+                navigate("/home");
 
-                    navigate("/home");
-
-                }
-
-            },2000);
-
+            }
         }
 
         catch (error) {
@@ -104,12 +96,12 @@ const Login = () => {
 
         }
 
-    };  
+    };
 
     return (
 
         <div className="min-h-screen bg-cover bg-center bg-no-repeat bg-black pb-16" style={{ backgroundImage: `url(${bgimg})` }}>
-           
+
             <div className="flex items-center gap-3 bg-green-950 text-white p-1 sm:p-2">
                 <img src={logo} alt="logo" className="w-20 h-10 sm:w-32 sm:h-12" />
                 <h1 className="font-bold text-xs sm:text-lg">CAR RENTAL HOUSE</h1>
@@ -147,7 +139,7 @@ const Login = () => {
                     </div>
 
                     <button type="submit" disabled={loading} className="w-full h-11 bg-orange-600 hover:bg-orange-700 rounded text-white font-bold flex justify-center items-center">
-                        
+
                         {loading ? (
 
                             <>
@@ -156,7 +148,7 @@ const Login = () => {
 
                             </>
                         ) : (
-                            
+
                             "Login"
                         )}
                     </button>

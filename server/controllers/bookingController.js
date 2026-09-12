@@ -8,32 +8,23 @@ export const placeOrder = async (req, res) => {
         const {
 
             fullName,
-
             email,
-
             phone,
-
             address,
-
             city,
-
             state,
-
             pincode,
-
             paymentMethod,
-
             totalPrice,
-
             pickupDate,
-
             returnDate,
-
             pickupLocation
 
         } = req.body;
 
-        const cart = await Cart.find();
+        const cart = await Cart.find({
+            user: req.user.id
+        });
 
         if (cart.length === 0) {
 
@@ -58,34 +49,25 @@ export const placeOrder = async (req, res) => {
             })),
 
             fullName,
-
             email,
-
             phone,
-
             address,
-
             city,
-
             state,
-
             pincode,
-
             paymentMethod,
-
             totalPrice,
-
             pickupDate,
-
             returnDate,
-
             pickupLocation
 
         });
 
         await booking.save();
 
-        await Cart.deleteMany();
+        await Cart.deleteMany({
+            user: req.user.id
+        });
 
         res.status(201).json({
 
@@ -245,13 +227,33 @@ export const cancelBooking = async (req, res) => {
             });
 
         }
-        if (booking.status=="pending"){
+        if (!booking){
+
+            return res.status(400).json({
+                success: false,
+                message: "Booking Not Found"
+            })
+        }
+
+        if (booking.user.toString() !== req.user.id) {
+
+            return res.status(403).json({
+                success: false,
+                message: "You can cancel only your own booking"
+            });
+
+        }
+
+        if (booking.status !== "pending") {
 
             return res.status(400).json({
                 success: false,
                 message: "Only Pending Bookings can be cancelled"
-            })
+            });
+
         }
+
+
         booking.status = "Cancelled";
         await booking.save();
 

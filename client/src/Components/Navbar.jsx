@@ -1,4 +1,3 @@
-import React from "react";
 import logo from "../assets/logocar.png";
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";

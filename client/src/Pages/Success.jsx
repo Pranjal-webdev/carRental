@@ -1,8 +1,8 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { FaCheckCircle } from "react-icons/fa";
 
 const Success = () => {
+    
     return (
         <div className="flex justify-center items-center h-screen bg-gray-100">
 

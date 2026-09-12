@@ -1,4 +1,3 @@
-import React from "react";
 import logo from "../assets/logocar.png";
 import car from "../assets/mobbg.jpg";
 import bgcar from "../assets/carbg.jpg";
@@ -15,7 +14,6 @@ const Registration = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [submitLoading, setSubmitLoading] = useState(false);
-    const [pageLoading, setPageLoading] = useState(true);
     const [formData, setFormData] = useState({
 
         firstName: "",
@@ -58,24 +56,16 @@ const Registration = () => {
             const res = await api.post("/api/auth/register", {
 
                 firstName: formData.firstName,
-
                 lastName: formData.lastName,
-
                 email: formData.email,
-
                 phone: formData.phone,
-
                 state: formData.state,
-
                 city: formData.city,
-
                 password: formData.password
 
             });
 
-            alert(res.data.message);
-
-            navigate("/login");
+            navigate("/home");
 
         } catch (error) {
 
@@ -109,47 +99,8 @@ const Registration = () => {
     }, []);
 
 
-    useEffect(() => {
-
-        const timer = setTimeout(() => {
-
-            setPageLoading(false);
-
-        }, 2000);
-
-        return () => clearTimeout(timer);
-
-    }, []);
-
-
-    if (pageLoading) {
-
-        return (
-
-            <div className="min-h-screen bg-black flex flex-col items-center justify-center">
-
-                <img
-                    src={logo}
-                    alt="Logo"
-                    className="w-28 mb-6 animate-pulse"
-                />
-
-                <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
-
-                <p className="text-white mt-5 text-lg">
-
-                    Loading...
-
-                </p>
-
-            </div>
-
-        );
-
-    }
-
-
     return (
+
         <div className="min-h-scren bg-contain bg-center bg-no-repeat bg-black pb-17" style={{ backgroundImage: `url(${bgimg})` }}>
             <div className="flex items-center gap-3 bg-green-950 text-white p-1 sm:p-2">
                 <img src={logo} alt="logo" className="w-20 h-10 sm:w-32 sm:h-12" />

@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import api from "../api";
 import { useParams } from "react-router-dom";
