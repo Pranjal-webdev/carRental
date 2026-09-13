@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import api from "../api";
+import "./registration.css";
 
 const Registration = () => {
 
@@ -101,100 +102,271 @@ const Registration = () => {
 
     return (
 
-        <div className="min-h-scren bg-contain bg-center bg-no-repeat bg-black pb-17" style={{ backgroundImage: `url(${bgimg})` }}>
-            <div className="flex items-center gap-3 bg-green-950 text-white p-1 sm:p-2">
-                <img src={logo} alt="logo" className="w-20 h-10 sm:w-32 sm:h-12" />
-                <h1 className="font-bold text-xs sm:text-lg">CAR RENTAL HOUSE</h1>
+        <div
+            className="registration-page"
+            style={{ backgroundImage: `url(${bgimg})` }}
+        >
+
+            <div className="registration-header">
+
+                <img
+                    src={logo}
+                    alt="logo"
+                    className="registration-logo"
+                />
+
+                <h1 className="registration-title">
+                    CAR RENTAL HOUSE
+                </h1>
+
             </div>
-            <div className="max-w-2xl mx-4 sm:mx-8 md:mx-auto mt-4 sm:mt-20 border p-6 sm:pb-10 sm:mb-10 rounded-lg bg-white/18 text-white">
-                <h1 className="text-lg sm:text-2xl lg:text-4xl font-bold ml-[80px] sm:ml-[150px] mb-[30px] pt-1">Registration Form</h1><br />
-                <div className="sm:ml-20">
+
+
+            <div className="registration-box">
+
+                <h1 className="registration-heading">
+                    Registration Form
+                </h1>
+
+
+                <div className="registration-form">
+
                     <form onSubmit={handlesubmit}>
-                        <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
-                            <label htmlFor="name" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">Name : </label>
-                            <input type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your name" required />
+
+                        <div className="form-row">
+
+                            <label htmlFor="firstName">
+                                Name :
+                            </label>
+
+                            <input
+                                type="text"
+                                id="firstName"
+                                name="firstName"
+                                value={formData.firstName}
+                                onChange={handleChange}
+                                className="form-input"
+                                placeholder="Enter your name"
+                                required
+                            />
+
                         </div>
-                        <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
-                            <label htmlFor="lastname" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">Last Name : </label>
-                            <input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your last name" required />
+
+
+                        <div className="form-row">
+
+                            <label htmlFor="lastName">
+                                Last Name :
+                            </label>
+
+                            <input
+                                type="text"
+                                id="lastName"
+                                name="lastName"
+                                value={formData.lastName}
+                                onChange={handleChange}
+                                className="form-input"
+                                placeholder="Enter your last name"
+                                required
+                            />
+
                         </div>
-                        <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
-                            <label htmlFor="email" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">Email : </label>
-                            <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your email" required />
+
+
+                        <div className="form-row">
+
+                            <label htmlFor="email">
+                                Email :
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                className="form-input"
+                                placeholder="Enter your email"
+                                required
+                            />
+
                         </div>
-                        <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
-                            <label htmlFor="phone" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">Phone no : </label>
-                            <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your phone no." maxLength={10} pattern="[6-9][0-9]{9}" required />
+
+
+                        <div className="form-row">
+
+                            <label htmlFor="phone">
+                                Phone no :
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                value={formData.phone}
+                                onChange={handleChange}
+                                className="form-input"
+                                placeholder="Enter your phone no."
+                                maxLength={10}
+                                pattern="[6-9][0-9]{9}"
+                                required
+                            />
+
                         </div>
-                        <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
-                            <label htmlFor="state" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">State : </label>
-                            <input type="text" id="state" name="state" value={formData.state} onChange={handleChange} className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your state" required />
+
+
+                        <div className="form-row">
+
+                            <label htmlFor="state">
+                                State :
+                            </label>
+
+                            <input
+                                type="text"
+                                id="state"
+                                name="state"
+                                value={formData.state}
+                                onChange={handleChange}
+                                className="form-input"
+                                placeholder="Enter your state"
+                                required
+                            />
+
                         </div>
-                        <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
-                            <label htmlFor="city" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">City : </label>
-                            <input type="text" id="city" name="city" value={formData.city} onChange={handleChange} className="w-full sm:w-72 border border-gray-400 rounded-sm pl-2" placeholder="Enter your city" required />
+
+
+                        <div className="form-row">
+
+                            <label htmlFor="city">
+                                City :
+                            </label>
+
+                            <input
+                                type="text"
+                                id="city"
+                                name="city"
+                                value={formData.city}
+                                onChange={handleChange}
+                                className="form-input"
+                                placeholder="Enter your city"
+                                required
+                            />
+
                         </div>
-                        <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
-                            <label htmlFor="password" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">Password :</label>
-                            <div className="relative w-full sm:w-72">
-                                <input type={showPassword ? "text" : "password"} id="password" name="password" value={formData.password} onChange={handleChange}
-                                    className="w-full border border-gray-400 rounded-sm pl-2 pr-10 h-9" placeholder="Enter your password" required />
-                                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
+
+
+                        <div className="form-row">
+
+                            <label htmlFor="password">
+                                Password :
+                            </label>
+
+                            <div className="password-wrapper">
+
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    id="password"
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    className="form-input"
+                                    placeholder="Enter your password"
+                                    required
+                                />
+
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="password-eye"
+                                >
                                     {showPassword ? <FaEyeSlash /> : <FaEye />}
                                 </button>
+
                             </div>
+
                         </div>
 
-                        <div className="flex flex-col sm:flex-row sm:items-center mb-[8px]">
-                            <label htmlFor="confirmPassword" className="sm:w-32 text-sm sm:text-base lg:text-xl mb-1 sm:mb-0">Confirm Password :</label>
-                            <div className="relative w-full sm:w-72">
-                                <input type={showConfirmPassword ? "text" : "password"} id="confirmPassword" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange}
-                                    className="w-full border border-gray-400 rounded-sm pl-2 pr-10 h-9" placeholder="Confirm your password" required />
-                                <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
+
+                        <div className="form-row">
+
+                            <label htmlFor="confirmPassword">
+                                Confirm Password :
+                            </label>
+
+                            <div className="password-wrapper">
+
+                                <input
+                                    type={showConfirmPassword ? "text" : "password"}
+                                    id="confirmPassword"
+                                    name="confirmPassword"
+                                    value={formData.confirmPassword}
+                                    onChange={handleChange}
+                                    className="form-input"
+                                    placeholder="Confirm your password"
+                                    required
+                                />
+
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        setShowConfirmPassword(!showConfirmPassword)
+                                    }
+                                    className="password-eye"
+                                >
                                     {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                                 </button>
+
                             </div>
+
                         </div>
 
-                        <div className="mt-6 text-center">
 
-                            <button type="submit" disabled={submitLoading} className={`w-80 h-12 text-white font-bold rounded-lg transition duration-300
+                        <div className="text-center">
 
-                                ${submitLoading
-                                    ? "bg-orange-400 cursor-not-allowed"
-                                    : "bg-orange-600 hover:bg-orange-700"
-                                }`}
+                            <button
+                                type="submit"
+                                disabled={submitLoading}
+                                className="register-button"
                             >
 
-                                {
+                                {submitLoading ? (
 
-                                    submitLoading ?
+                                    <div className="flex justify-center items-center gap-2">
 
-                                        <div className="flex justify-center items-center gap-2">
+                                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
 
-                                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                        Creating Account...
 
-                                            Creating Account...
+                                    </div>
 
-                                        </div>
+                                ) : (
 
-                                        :
+                                    "Create Account"
 
-                                        "Create Account"
-
-                                }
+                                )}
 
                             </button>
 
-                            <p className="mt-5 text-gray-600">Already have an account?
 
-                                <Link to="/login" className="text-orange-600 font-semibold ml-2 hover:underline">Login</Link>
+                            <p className="login-link">
+
+                                Already have an account?
+
+                                <Link to="/login">
+                                    Login
+                                </Link>
+
                             </p>
+
                         </div>
+
                     </form>
+
                 </div>
+
             </div>
-        </div >
+
+        </div>
     )
 }
 export default Registration;

@@ -2,69 +2,37 @@ import cars from "../assets/bgcar01.jpg";
 import { Link } from "react-router-dom";
 import api from "../api";
 import { useContext, useEffect, useState } from "react";
-import logo from "../assets/logocar.png";
 import { CartContext } from "../context/CartContext";
 import AIChatbot from "./AIChatbot";
 
 const Home = () => {
 
     const { cartCount, setCartCount } = useContext(CartContext);
-    const [pageLoading, setPageLoading] = useState(true);
+
 
     useEffect(() => {
 
-    const fetchCart = async () => {
+        const fetchCart = async () => {
+            try {
+                const res = await api.get("/api/cart");
 
-        const res = await api.get("/api/cart");
+                const total = res.data.reduce((sum, item) => {
+                    return sum + item.quantity;
+                }, 0);
 
-        const total = res.data.reduce((sum, item) => {
+                setCartCount(total);
 
-            return sum + item.quantity;
+            } catch (error) {
+                console.log(error);
+            }
 
-        }, 0);
+            finally {
+                setLoading(false);
+            }
+        };
 
-        setCartCount(total);
-
-    };
-
-    fetchCart();
-
-}, []);
-
-
-useEffect(() => {
-
-    const timer = setTimeout(() => {
-
-        setPageLoading(false);
-
-    }, 2000);
-
-    return () => clearTimeout(timer);
-
-}, []);
-
-
-if (pageLoading) {
-
-    return (
-
-        <div className="min-h-screen bg-black flex flex-col items-center justify-center">
-
-            <img src={logo} alt="Logo" className="w-32 animate-pulse"/>
-
-            <h1 className="text-white text-3xl font-bold mt-6">CAR RENTAL HOUSE</h1>
-            
-            <p className="text-gray-400 mt-3">Loading your journey...</p>
-
-            <div className="mt-8 w-16 h-16 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
-
-        </div>
-
-    );
-
-}
-
+        fetchCart();
+    }, []);
 
     return (
         <div>
@@ -90,8 +58,9 @@ if (pageLoading) {
             </div>
 
             <AIChatbot />
-            
+
         </div>
     )
 }
+
 export default Home;
