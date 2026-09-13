@@ -1,4 +1,3 @@
-import React from "react";
 import Registration from "./Pages/Registration";
 import Home from "./Pages/Home";
 import { Routes, Route } from "react-router-dom";
@@ -30,7 +29,7 @@ const App = () => {
 
     <div>
       <Routes>
-        <Route path="/register" element={<Registration />} />
+        <Route path="/" element={<Registration />} />
         <Route path="/login" element={<Login />} />
         <Route path="/feedback" element={<Feedback />} />
 

@@ -161,7 +161,7 @@ const Login = () => {
                         )}
                     </button>
 
-                    <p className="text-center mt-5 md:text-lg"> Don't have an account? <Link to="/register" className="text-orange-700 ml-2 font-semibold md:text-xl">Register</Link></p>
+                    <p className="text-center mt-5 md:text-lg"> Don't have an account? <Link to="/" className="text-orange-700 ml-2 font-semibold md:text-xl">Register</Link></p>
 
                 </form>
 
