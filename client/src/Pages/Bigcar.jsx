@@ -3,7 +3,7 @@ import api from "../api";
 import { useParams } from "react-router-dom";
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
-import CarDetailSkeleton from "../components/Skeleton/CarDetailSkeleton";
+import CarDetailSkeleton from "../Components/Skeleton/CarDetailSkeleton";
 
 const Bigcar = () => {
 
