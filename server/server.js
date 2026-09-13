@@ -45,13 +45,12 @@ app.use("/api/cart", cartRoutes);
 app.use("/api/booking", bookingRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", dashboardRoutes);
-app.use("/api/booking", bookingRoutes);
 app.use("/api/feedback", feedbackRoutes);
 app.use("/api/ai", aiRoute);
 app.use("/api/ai-chat", chatRoute);
 
 const PORT = process.env.PORT || 8000;
 
-app.listen(PORT, () => {
+app.listen(PORT,  "0.0.0.0", () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
