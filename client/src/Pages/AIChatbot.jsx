@@ -30,7 +30,7 @@ const AIChatbot = () => {
             ...prev,
             {
                 sender: "user",
-                text : text
+                text: text
             }
         ]);
 
@@ -78,13 +78,18 @@ const AIChatbot = () => {
         <>
             {isOpen && (
 
-                <div className="fixed bottom-24 right-4 sm:right-6 w-[340px] max-w-[calc(100vw-2rem)] h-[500px] bg-white rounded-2xl shadow-2xl z-50 overflow-hidden border border-gray-200 flex flex-col">
+                <div className="fixed bottom-24 right-3 sm:right-5 md:right-6
+                    w-[calc(100vw-1.5rem)] sm:w-[340px] md:w-[360px]
+                    h-[70vh] sm:h-[500px] md:h-[540px]
+                    max-h-[calc(100vh-7rem)]
+                    bg-white rounded-2xl shadow-2xl z-50 overflow-hidden
+                    border border-gray-200 flex flex-col">
 
-                    <div className="bg-orange-600 text-white px-4 py-3 flex items-center justify-between">
+                    <div className="bg-orange-600 text-white x-3 sm:px-4 py-3 flex items-center justify-between">
 
                         <div className="flex items-center gap-3">
 
-                            <div className="w-10 h-10 bg-white text-orange-600 rounded-full flex items-center justify-center">
+                            <div className="w-9 h-9 sm:w-10 sm:h-10 bg-white text-orange-600 rounded-full flex items-center justify-center shrink-0 ">
                                 <FaRobot />
                             </div>
 
@@ -111,25 +116,23 @@ const AIChatbot = () => {
 
                     </div>
 
-                    <div className="flex-1 overflow-y-auto p-4 bg-gray-50 space-y-3">
+                    <div className="flex-1 overflow-y-auto p-3 sm:p-4 bg-gray-50 space-y-3">
 
                         {messages.map((msg, index) => (
 
                             <div
                                 key={index}
-                                className={`flex ${
-                                    msg.sender === "user"
-                                        ? "justify-end"
-                                        : "justify-start"
-                                }`}
+                                className={`flex ${msg.sender === "user"
+                                    ? "justify-end"
+                                    : "justify-start"
+                                    }`}
                             >
 
                                 <div
-                                    className={`max-w-[80%] px-4 py-2 rounded-2xl text-sm ${
-                                        msg.sender === "user"
-                                            ? "bg-orange-600 text-white rounded-br-sm"
-                                            : "bg-white text-gray-800 shadow-sm rounded-bl-sm"
-                                    }`}
+                                    className={`max-w-[80%] sm:max-w-[85%] px-3 sm:px-4 py-2 rounded-2xl text-sm break-words ${msg.sender === "user"
+                                        ? "bg-orange-600 text-white rounded-br-sm"
+                                        : "bg-white text-gray-800 shadow-sm rounded-bl-sm"
+                                        }`}
                                 >
                                     {msg.text}
                                 </div>
@@ -165,7 +168,7 @@ const AIChatbot = () => {
 
                     <form
                         onSubmit={handleSend}
-                        className="p-3 border-t bg-white flex gap-2"
+                        className="flex-1 min-w-0 border border-gray-300 rounded-full px-3 sm:px-4 py-2 text-sm outline-none focus:border-orange-500"
                     >
 
                         <input
@@ -195,7 +198,7 @@ const AIChatbot = () => {
 
                 <button
                     onClick={() => setIsOpen(true)}
-                    className="fixed bottom-6 right-6 w-14 h-14 bg-orange-600 hover:bg-orange-700 text-white rounded-full shadow-xl flex items-center justify-center z-50 transition-transform duration-300 hover:scale-110"
+                    className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 w-13 h-13 sm:w-14 sm:h-14 bg-orange-600 hover:bg-orange-700 text-white rounded-full shadow-xl flex items-center justify-center z-50 transition-transform duration-300 hover:scale-110"
                 >
                     <FaRobot className="text-xl" />
                 </button>
