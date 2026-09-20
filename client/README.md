@@ -1,16 +1,73 @@
-# React + Vite
+# 🚗 Car Rental House
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack car rental web application built using the MERN stack. The application allows users to browse cars, manage their cart, make bookings, track bookings, and interact with AI-powered car recommendations and chatbot assistance.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### 👤 User Features
+- User registration and login
+- JWT-based authentication
+- Browse available cars
+- View detailed car information
+- Add cars to cart
+- Increase/decrease cart quantity
+- Book cars
+- View personal bookings
+- Cancel pending bookings
+- Submit and view reviews
+- Responsive UI for mobile, tablet and desktop
 
-## React Compiler
+### 🛡️ Admin Features
+- Role-based admin authorization
+- Add new cars
+- Update car details
+- Delete cars
+- Manage booking status
+- View all bookings
+- Manage users
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🤖 AI Features
+- AI-powered car recommendation system
+- AI chatbot for car rental assistance
+- Gemini API integration
+- Recommendations are generated using actual available car data from MongoDB
 
-## Expanding the ESLint configuration
+### 🖼️ Image Management
+- Cloudinary integration for image uploads
+- Car images are stored on Cloudinary
+- Image URLs are stored in MongoDB
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🔐 Authentication & Authorization
+
+The application uses JWT-based authentication.
+
+- JWT token is generated after successful login.
+- The token is sent with protected API requests.
+- Backend middleware verifies the token.
+- User ID from the token is used to fetch user-specific data.
+- Role-based middleware restricts admin-only operations.
+
+## 🛒 Cart & Booking Data Persistence
+
+Cart and booking data are stored in MongoDB instead of only keeping the data in frontend state.
+
+Each cart and booking record is associated with the logged-in user's ID.
+
+When a user returns to the application, the frontend sends a request to the backend. The backend identifies the user using the JWT token and fetches the user's data from MongoDB.
+
+Example flow:
+
+```text
+User
+ ↓
+React Frontend
+ ↓
+API Request + JWT
+ ↓
+Express Backend
+ ↓
+MongoDB
+ ↓
+User-specific Data
+ ↓
+React UI
