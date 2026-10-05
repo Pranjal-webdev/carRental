@@ -13,6 +13,13 @@ const Home = () => {
     useEffect(() => {
 
         const fetchCart = async () => {
+
+            const token = localStorage.getItem("token");
+
+            if (!token) {
+                setCartCount(0);
+                return;
+            }
             try {
                 const res = await api.get("/api/cart");
 
@@ -24,10 +31,6 @@ const Home = () => {
 
             } catch (error) {
                 console.log(error);
-            }
-
-            finally {
-                setLoading(false);
             }
         };
 
