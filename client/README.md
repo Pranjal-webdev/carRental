@@ -55,19 +55,19 @@ Each cart and booking record is associated with the logged-in user's ID.
 
 When a user returns to the application, the frontend sends a request to the backend. The backend identifies the user using the JWT token and fetches the user's data from MongoDB.
 
-Example flow:
+## 📁 Project Structure
 
 ```text
-User
- ↓
-React Frontend
- ↓
-API Request + JWT
- ↓
-Express Backend
- ↓
-MongoDB
- ↓
-User-specific Data
- ↓
-React UI
+Car-Rental/
+├── client/
+│   ├── src/
+│   └── package.json
+│
+├── server/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── middleware/
+│   └── package.json
+│
+└── README.md
