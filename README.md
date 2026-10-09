@@ -46,7 +46,7 @@ The application uses JWT-based authentication.
 - Backend middleware verifies the token.
 - User ID from the token is used to fetch user-specific data.
 - Role-based middleware restricts admin-only operations.
-- 
+  
 ## 📁 Project Structure
 
 ```text
