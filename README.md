@@ -46,15 +46,7 @@ The application uses JWT-based authentication.
 - Backend middleware verifies the token.
 - User ID from the token is used to fetch user-specific data.
 - Role-based middleware restricts admin-only operations.
-
-## 🛒 Cart & Booking Data Persistence
-
-Cart and booking data are stored in MongoDB instead of only keeping the data in frontend state.
-
-Each cart and booking record is associated with the logged-in user's ID.
-
-When a user returns to the application, the frontend sends a request to the backend. The backend identifies the user using the JWT token and fetches the user's data from MongoDB.
-
+- 
 ## 📁 Project Structure
 
 ```text
