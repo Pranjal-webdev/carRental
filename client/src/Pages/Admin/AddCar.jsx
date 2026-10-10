@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 const AddCar = () => {
 
-    const [loading,setLoading]=useState(true);
+    const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState({
 
         name: "",
@@ -21,31 +21,33 @@ const AddCar = () => {
     const { id } = useParams();
     const navigate = useNavigate();
 
-    useEffect(()=>{
+    useEffect(() => {
 
-        if (id){
+        if (id) {
             fetchCar();
+        } else {
+            setLoading(false);
         }
-    },[id]);
+    }, [id]);
 
     const fetchCar = async () => {
 
-        try{
+        try {
 
             setLoading(true);
             const res = await api.get(`/api/cars/${id}`);
             setFormData(res.data);
         }
 
-        catch (error){
+        catch (error) {
             console.log(error);
         }
 
-        finally{
+        finally {
 
             setLoading(false);
 
-       }
+        }
     };
 
 
@@ -68,7 +70,7 @@ const AddCar = () => {
         try {
 
             if (id) {
-                   
+
                 await api.put(`/api/cars/${id}`, formData);
 
                 alert("Car Updated Successfully");
@@ -85,28 +87,28 @@ const AddCar = () => {
             navigate("/admin/cars");
         }
 
-        catch (error){
+        catch (error) {
 
             console.log(error);
 
-            alert (id? "failed to update car":"failed to add car")
+            alert(id ? "failed to update car" : "failed to add car")
         }
-    };    
+    };
 
 
-    if(loading){
+    if (loading) {
 
-    return(
+        return (
 
-        <div className="min-h-screen flex justify-center items-center">
+            <div className="min-h-screen flex justify-center items-center">
 
-            <div className="w-12 h-12 border-4 border-orange-600 border-t-transparent rounded-full animate-spin"></div>
+                <div className="w-12 h-12 border-4 border-orange-600 border-t-transparent rounded-full animate-spin"></div>
 
-        </div>
+            </div>
 
-    );
+        );
 
-}
+    }
 
 
 
