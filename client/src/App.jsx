@@ -9,7 +9,7 @@ import Checkout from "./Pages/Checkout";
 import Success from "./Pages/Success";
 import Login from "./Pages/Login";
 import ProtectedRoute from "./Components/ProtectedRoute";
-import Dashboard from "./Pages/Admin/Dashboard";
+import Dashboard from "../Pages/Admin/Dashboard";
 import AdminProtectedRoute from "./Components/AdminProtectedRoute";
 import AdminLayout from "./Components/AdminLayout";
 import Cars from "./Pages/Admin/Cars";

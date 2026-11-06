@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import api from "../api";
@@ -110,15 +109,10 @@ const Carcard = () => {
                                         <div className="p-4">
 
                                             <div className="h-6 bg-gray-300 rounded w-3/4 mx-auto mb-4"></div>
-
                                             <div className="h-4 bg-gray-300 rounded w-full mb-2"></div>
-
                                             <div className="h-4 bg-gray-300 rounded w-5/6 mx-auto mb-2"></div>
-
                                             <div className="h-4 bg-gray-300 rounded w-2/3 mx-auto mb-4"></div>
-
                                             <div className="h-5 bg-gray-300 rounded w-1/3 mx-auto mb-4"></div>
-
                                             <div className="h-10 bg-gray-300 rounded w-32 mx-auto"></div>
 
                                         </div>
@@ -141,9 +135,7 @@ const Carcard = () => {
                                     <div><img src={car.image} alt={car.name} className="w-full h-44 object-cover border-black border-1" /></div>
 
                                     <p className="font-bold text-xl">{car.name}</p>
-
                                     <p className="text-gray-600 text-sm mt-2 line-clamp-3 h-12">{car.description}</p>
-
                                     <p className="text-orange-600 font-bold mt-3">₹ {car.price}/day</p>
 
                                     <button className="border border-black text-white bg-orange-600 hover:bg-orange-700 rounded-lg px-5 py-2 mb-2 mt-auto transition duration-300"><Link to={`/cardetail/${car._id}`}>Book Now</Link></button>
